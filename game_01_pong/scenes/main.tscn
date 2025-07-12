@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://m2ousm01skw3"]
+
+[ext_resource type="FontFile" uid="uid://j8ukru3t68eg" path="res://font/Kenney Mini Square.ttf" id="1_o5qli"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
+font = ExtResource("1_o5qli")
+font_size = 64
+
+[node name="Main" type="Node"]
+
+[node name="Board" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0768358, 0.0768358, 0.0768358, 1)
+
+[node name="CenterLine" type="VBoxContainer" parent="Board"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_right = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Mark" type="ColorRect" parent="Board/CenterLine"]
+custom_minimum_size = Vector2(10, 40)
+layout_mode = 2
+
+[node name="Mark2" type="ColorRect" parent="Board/CenterLine"]
+custom_minimum_size = Vector2(10, 40)
+layout_mode = 2
+
+[node name="Mark3" type="ColorRect" parent="Board/CenterLine"]
+custom_minimum_size = Vector2(10, 40)
+layout_mode = 2
+
+[node name="Mark4" type="ColorRect" parent="Board/CenterLine"]
+custom_minimum_size = Vector2(10, 40)
+layout_mode = 2
+
+[node name="Mark5" type="ColorRect" parent="Board/CenterLine"]
+custom_minimum_size = Vector2(10, 40)
+layout_mode = 2
+
+[node name="Mark6" type="ColorRect" parent="Board/CenterLine"]
+custom_minimum_size = Vector2(10, 40)
+layout_mode = 2
+
+[node name="LeftScore" type="Label" parent="Board"]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 13.0
+offset_right = 235.0
+offset_bottom = 93.0
+text = "0"
+label_settings = SubResource("LabelSettings_0wfyh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightScore" type="Label" parent="Board"]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 13.0
+offset_right = 635.0
+offset_bottom = 93.0
+text = "0"
+label_settings = SubResource("LabelSettings_0wfyh")
+horizontal_alignment = 1
+vertical_alignment = 1
