@@ -1,20 +1,20 @@
 [gd_scene load_steps=7 format=3 uid="uid://m2ousm01skw3"]
 
+[ext_resource type="Script" uid="uid://p86p0ilq5hkw" path="res://scripts/main.gd" id="1_jyhfs"]
 [ext_resource type="FontFile" uid="uid://j8ukru3t68eg" path="res://font/Kenney Mini Square.ttf" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://baq5fpcht5uj4" path="res://art/ball.png" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://cxkuyl3v6cgl3" path="res://art/paddle.png" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://b6rd8vih5m42f" path="res://ball.tscn" id="3_tbgi4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
 font = ExtResource("1_o5qli")
 font_size = 64
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
-size = Vector2(10, 10)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
 size = Vector2(10, 40)
 
 [node name="Main" type="Node"]
+script = ExtResource("1_jyhfs")
+ball_scene = ExtResource("3_tbgi4")
 
 [node name="Board" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -85,20 +85,50 @@ label_settings = SubResource("LabelSettings_0wfyh")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Ball" type="RigidBody2D" parent="."]
-position = Vector2(400, 200)
+[node name="LeftPaddle" type="CharacterBody2D" parent="."]
+position = Vector2(22, 316)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
-shape = SubResource("RectangleShape2D_tbgi4")
-
-[node name="Sprite2D" type="Sprite2D" parent="Ball"]
-texture = ExtResource("2_sugp2")
-
-[node name="Paddle" type="CharacterBody2D" parent="."]
-position = Vector2(23, 36)
-
-[node name="Sprite2D" type="Sprite2D" parent="Paddle"]
+[node name="Sprite2D" type="Sprite2D" parent="LeftPaddle"]
 texture = ExtResource("3_jyhfs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftPaddle"]
+shape = SubResource("RectangleShape2D_tefeu")
+
+[node name="RightPaddle" type="CharacterBody2D" parent="."]
+position = Vector2(772, 238)
+
+[node name="Sprite2D" type="Sprite2D" parent="RightPaddle"]
+texture = ExtResource("3_jyhfs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightPaddle"]
+shape = SubResource("RectangleShape2D_tefeu")
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Top" type="CharacterBody2D" parent="Walls"]
+position = Vector2(401, -20)
+scale = Vector2(82.48, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top"]
+shape = SubResource("RectangleShape2D_tefeu")
+
+[node name="Left" type="CharacterBody2D" parent="Walls"]
+position = Vector2(-6, 200)
+scale = Vector2(1, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left"]
+shape = SubResource("RectangleShape2D_tefeu")
+
+[node name="Right" type="CharacterBody2D" parent="Walls"]
+position = Vector2(806, 200)
+scale = Vector2(1, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right"]
+shape = SubResource("RectangleShape2D_tefeu")
+
+[node name="Bottom" type="CharacterBody2D" parent="Walls"]
+position = Vector2(401, 420)
+scale = Vector2(82.48, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom"]
 shape = SubResource("RectangleShape2D_tefeu")
