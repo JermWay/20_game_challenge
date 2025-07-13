@@ -42,7 +42,7 @@ func reset_ball() -> void:
 		ball.queue_free()
 	ball = ball_scene.instantiate()
 	ball.global_position = ball_start_position
-	ball.linear_velocity = Vector2(1, 1).normalized() * ball_speed
+	ball.linear_velocity = Vector2([1,-1].pick_random(),randf_range(-1,1)).normalized() * ball_speed
 	ball.body_entered.connect(_on_ball_hit_wall)
 	add_child(ball)
 	
