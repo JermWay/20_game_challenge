@@ -53,6 +53,7 @@ vertical_alignment = 1
 
 [node name="Paddle" parent="." instance=ExtResource("4_jyhfs")]
 position = Vector2(200, 750)
+paddle_speed = 500.0
 
 [node name="Walls" type="Node" parent="."]
 

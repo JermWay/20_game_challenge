@@ -8,7 +8,8 @@ extends Node
 @onready var bottom_wall: StaticBody2D = $Walls/Bottom
 
 @export var lives_count: int = 3
-@export var ball_speed: float = 400
+@export var ball_start_speed: float = 400
+var ball_speed: float
 
 var ball: RigidBody2D
 var ball_start_position: Vector2
@@ -52,7 +53,7 @@ func reset_ball() -> void:
 		
 	ball = ball_scene.instantiate()
 	ball.global_position = ball_start_position
-	
+	ball_speed = ball_start_speed
 	ball.linear_velocity = Vector2.UP.normalized() * ball_speed
 	ball.body_entered.connect(_on_ball_hit_wall)
 	add_child(ball)
@@ -70,3 +71,4 @@ func _on_ball_hit_wall(body: Node) -> void:
 		score_count += body.points
 		score.text = str(score_count)
 		body.queue_free()
+		ball_speed += 10
