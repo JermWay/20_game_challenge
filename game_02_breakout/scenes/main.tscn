@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://m2ousm01skw3"]
+[gd_scene load_steps=10 format=3 uid="uid://m2ousm01skw3"]
 
 [ext_resource type="Script" uid="uid://p86p0ilq5hkw" path="res://scripts/main.gd" id="1_jyhfs"]
 [ext_resource type="FontFile" uid="uid://j8ukru3t68eg" path="res://font/Kenney Mini Square.ttf" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://g8yqdttybdaq" path="res://scenes/ball.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://uscscfmfnwwf" path="res://scenes/paddle.tscn" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://bukpqd27lx3a2" path="res://scripts/bricks.gd" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://cscvyehhh6yed" path="res://scenes/brick.tscn" id="6_tefeu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
 font = ExtResource("1_o5qli")
@@ -13,7 +15,7 @@ font_size = 64
 size = Vector2(400, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
-size = Vector2(20, 800)
+size = Vector2(20, 400)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_jyhfs")
@@ -61,7 +63,7 @@ position = Vector2(200, -10)
 shape = SubResource("RectangleShape2D_jyhfs")
 
 [node name="Bottom" type="StaticBody2D" parent="Walls"]
-position = Vector2(200, 810)
+position = Vector2(200, 410)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom"]
 shape = SubResource("RectangleShape2D_jyhfs")
@@ -69,12 +71,16 @@ shape = SubResource("RectangleShape2D_jyhfs")
 [node name="Left" type="StaticBody2D" parent="Walls"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left"]
-position = Vector2(-10, 400)
+position = Vector2(-10, 200)
 shape = SubResource("RectangleShape2D_tbgi4")
 
 [node name="Right" type="StaticBody2D" parent="Walls"]
 position = Vector2(420, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right"]
-position = Vector2(-10, 400)
+position = Vector2(-10, 200)
 shape = SubResource("RectangleShape2D_tbgi4")
+
+[node name="Bricks" type="Node" parent="."]
+script = ExtResource("5_tbgi4")
+brick_scene = ExtResource("6_tefeu")

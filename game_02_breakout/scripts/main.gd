@@ -28,6 +28,7 @@ func _ready() -> void:
 	)
 	
 	reset_ball()
+	$Bricks.setup_bricks()
 	
 func _physics_process(delta: float) -> void:
 	handle_input(delta)
