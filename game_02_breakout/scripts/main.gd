@@ -66,3 +66,7 @@ func _on_ball_hit_wall(body: Node) -> void:
 		var offset = (ball.global_position.x - paddle.global_position.x) / paddle.extents.x
 		var direction = Vector2(offset, -1).normalized()
 		ball.linear_velocity = direction * ball_speed
+	elif body.is_in_group("bricks"):
+		score_count += body.points
+		score.text = str(score_count)
+		body.queue_free()
