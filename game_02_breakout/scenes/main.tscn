@@ -1,16 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://m2ousm01skw3"]
+[gd_scene load_steps=8 format=3 uid="uid://m2ousm01skw3"]
 
 [ext_resource type="Script" uid="uid://p86p0ilq5hkw" path="res://scripts/main.gd" id="1_jyhfs"]
 [ext_resource type="FontFile" uid="uid://j8ukru3t68eg" path="res://font/Kenney Mini Square.ttf" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://cxkuyl3v6cgl3" path="res://art/paddle.png" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://g8yqdttybdaq" path="res://scenes/ball.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://uscscfmfnwwf" path="res://scenes/paddle.tscn" id="4_jyhfs"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
 font = ExtResource("1_o5qli")
 font_size = 64
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
-size = Vector2(40, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
 size = Vector2(400, 20)
@@ -52,15 +49,8 @@ label_settings = SubResource("LabelSettings_0wfyh")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Paddle" type="CharacterBody2D" parent="."]
+[node name="Paddle" parent="." instance=ExtResource("4_jyhfs")]
 position = Vector2(200, 750)
-
-[node name="Sprite2D" type="Sprite2D" parent="Paddle"]
-rotation = 1.5708
-texture = ExtResource("3_jyhfs")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle"]
-shape = SubResource("RectangleShape2D_tefeu")
 
 [node name="Walls" type="Node" parent="."]
 
