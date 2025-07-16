@@ -1,2 +1,4 @@
 game_01_pong/export_presets.cfg
 /game_01_pong/web_build
+game_02_breakout/export_presets.cfg
+/game_02_breakout/web_build
