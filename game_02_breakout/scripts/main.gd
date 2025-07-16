@@ -8,6 +8,8 @@ extends Node
 @onready var paddle: CharacterBody2D = $Paddle
 @onready var bottom_wall: StaticBody2D = $Walls/Bottom
 @onready var brick_manager: Node = $BrickManager
+@onready var paddle_bounce: AudioStreamPlayer = $PaddleBounce
+@onready var brick_bounce: AudioStreamPlayer = $BrickBounce
 
 @export var max_lives: int = 3
 @export var ball_start_speed: float = 400
@@ -104,10 +106,12 @@ func _on_ball_hit_wall(body: Node) -> void:
 			return
 		reset_ball.call_deferred()
 	elif body == paddle:
+		paddle_bounce.play()
 		var offset = (ball.global_position.x - paddle.global_position.x) / paddle.extents.x
 		var direction = Vector2(offset, -1).normalized()
 		ball.linear_velocity = direction * ball_speed
 	elif body.is_in_group("bricks"):
+		brick_bounce.play()
 		score_count += body.points
 		body.queue_free()
 		ball_speed += 10

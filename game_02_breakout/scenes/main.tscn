@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://m2ousm01skw3"]
+[gd_scene load_steps=13 format=3 uid="uid://m2ousm01skw3"]
 
 [ext_resource type="Script" uid="uid://p86p0ilq5hkw" path="res://scripts/main.gd" id="1_jyhfs"]
 [ext_resource type="FontFile" uid="uid://j8ukru3t68eg" path="res://font/Kenney Mini Square.ttf" id="1_o5qli"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://uscscfmfnwwf" path="res://scenes/paddle.tscn" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://bukpqd27lx3a2" path="res://scripts/bricks.gd" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cscvyehhh6yed" path="res://scenes/brick.tscn" id="6_tefeu"]
+[ext_resource type="AudioStream" uid="uid://bciu8nmlrnclu" path="res://sfx/brick_bounce.mp3" id="7_tipki"]
+[ext_resource type="AudioStream" uid="uid://blx5757sk85j2" path="res://sfx/paddle_bounce.mp3" id="8_85g3d"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
 font = ExtResource("1_o5qli")
@@ -102,3 +104,11 @@ shape = SubResource("RectangleShape2D_tbgi4")
 [node name="BrickManager" type="Node" parent="."]
 script = ExtResource("5_tbgi4")
 brick_scene = ExtResource("6_tefeu")
+
+[node name="BrickBounce" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_tipki")
+volume_db = -25.0
+
+[node name="PaddleBounce" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_85g3d")
+volume_db = -25.0

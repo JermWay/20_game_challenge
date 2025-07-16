@@ -12,11 +12,11 @@ func reset_bricks() -> void:
 		brick.queue_free()
 	
 	for rows in range(8):
-		var row_color = rows /2
+		var row_color = int(float(rows) / 2)
 		match row_color:
-			2: brick_color = Color.GREEN
 			0: brick_color = Color.RED
 			1: brick_color = Color.ORANGE
+			2: brick_color = Color.GREEN
 			3: brick_color = Color.YELLOW
 			_: brick_color = Color.WHITE
 		match row_color:
