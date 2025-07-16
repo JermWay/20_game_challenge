@@ -1,6 +1,8 @@
 extends Node
 
 @export var ball_scene: PackedScene
+@export var max_lives: int = 3
+@export var ball_start_speed: float = 400
 
 @onready var high_score: Label = $Board/HighScore
 @onready var score: Label = $Board/Score
@@ -11,14 +13,12 @@ extends Node
 @onready var paddle_bounce: AudioStreamPlayer = $PaddleBounce
 @onready var brick_bounce: AudioStreamPlayer = $BrickBounce
 
-@export var max_lives: int = 3
-@export var ball_start_speed: float = 400
 var ball_speed: float
-
 var ball: RigidBody2D
 var paddle_start_position: Vector2
 var screen_size: Vector2
 var disable_paddle: bool = false
+var save_path = "user://score.save"
 
 var lives_count: int = 0: 
 		set(new_value):
@@ -47,13 +47,16 @@ func _ready() -> void:
 		screen_size.y * .9
 	)
 	
+	load_score()
 	reset_game()
 	
 func reset_game() -> void:
 	if score_count > high_score_count:
 		high_score_count = score_count
+		save_score()
+	
 	score_count = 0
-	lives_count = 1
+	lives_count = max_lives
 	reset_ball()
 	brick_manager.reset_bricks()
 	
@@ -100,9 +103,9 @@ func reset_ball() -> void:
 	
 func _on_ball_hit_wall(body: Node) -> void:
 	if body == bottom_wall:
-		lives_count += 1
-		if lives_count > 3:
-			reset_game()
+		lives_count -= 1
+		if lives_count < 1:
+			reset_game.call_deferred()
 			return
 		reset_ball.call_deferred()
 	elif body == paddle:
@@ -115,3 +118,17 @@ func _on_ball_hit_wall(body: Node) -> void:
 		score_count += body.points
 		body.queue_free()
 		ball_speed += 10
+
+
+func save_score():
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_var(high_score_count)
+
+func load_score():
+	if FileAccess.file_exists(save_path):
+		print("file found")
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		high_score_count = file.get_var()
+	else:
+		print("file not found")
+		high_score_count = 0
