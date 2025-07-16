@@ -2,11 +2,14 @@ extends Node
 
 @export var brick_scene: PackedScene
 
-func setup_bricks() -> void:
+func reset_bricks() -> void:
 	var last_brick_position: Vector2 = Vector2(0,80)
 	var brick_extents
 	var brick_color: Color = Color.WHITE
 	var brick_points: int = 0
+	
+	for brick in get_children():
+		brick.queue_free()
 	
 	for rows in range(8):
 		var row_color = rows /2
