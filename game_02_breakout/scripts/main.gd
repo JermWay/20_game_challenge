@@ -16,6 +16,7 @@ var ball_start_position: Vector2
 var paddle_start_position: Vector2
 var score_count: int = 0
 var screen_size: Vector2
+var disable_paddle: bool = false
 
 func _ready() -> void:
 	screen_size = get_viewport().get_visible_rect().size
@@ -32,31 +33,44 @@ func _ready() -> void:
 	$Bricks.setup_bricks()
 	
 func _physics_process(delta: float) -> void:
-	handle_input(delta)
+	if disable_paddle and ball.get_parent() == paddle:
+		disable_paddle = false
+	if not disable_paddle:
+		handle_input(delta)
 
 func handle_input(delta: float) -> void:
+	if disable_paddle:
+		return
+		
 	var move_direction: Vector2 = Vector2.ZERO
 	if Input.is_action_pressed("right"):
 		move_direction += Vector2.RIGHT
 	if Input.is_action_pressed("left"):
 		move_direction += Vector2.LEFT
-		
+	if Input.is_action_just_pressed("ui_accept"):
+		if ball.linear_velocity == Vector2.ZERO:
+			ball.reparent(paddle.get_parent())
+			ball.freeze = false
+			ball.linear_velocity = Vector2.UP.normalized() * ball_speed
+			
 	paddle.move_paddle(move_direction, delta, screen_size)
 	
-
 func reset_ball() -> void:
-	paddle.position = paddle_start_position
+	disable_paddle = true
+	
 	if ball:
 		if ball.body_entered.is_connected(_on_ball_hit_wall):
 			ball.body_entered.disconnect(_on_ball_hit_wall)
 		ball.queue_free()
 		
+	paddle.global_position = paddle_start_position
+	
 	ball = ball_scene.instantiate()
-	ball.global_position = ball_start_position
 	ball_speed = ball_start_speed
-	ball.linear_velocity = Vector2.UP.normalized() * ball_speed
 	ball.body_entered.connect(_on_ball_hit_wall)
-	add_child(ball)
+	
+	paddle.add_child(ball)
+	ball.position = Vector2(0,-10)
 	
 func _on_ball_hit_wall(body: Node) -> void:
 	if body == bottom_wall:
