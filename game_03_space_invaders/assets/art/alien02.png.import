@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://donvwv7ab5pd5"
-path="res://.godot/imported/ship.png-0b2a8e7064d2d88a0149f9491a8ea676.ctex"
+uid="uid://ba5agfewurvu0"
+path="res://.godot/imported/alien02.png-a0bc5eaa286a4118f3d14e10550f35aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ship.png"
-dest_files=["res://.godot/imported/ship.png-0b2a8e7064d2d88a0149f9491a8ea676.ctex"]
+source_file="res://assets/art/alien02.png"
+dest_files=["res://.godot/imported/alien02.png-a0bc5eaa286a4118f3d14e10550f35aa.ctex"]
 
 [params]
 

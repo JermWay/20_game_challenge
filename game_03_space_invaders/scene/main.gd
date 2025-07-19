@@ -1,10 +1,14 @@
 extends Node2D
 
 @export var player_scene: PackedScene
-@onready var player: CharacterBody2D
+@export var rocket_scene: PackedScene
+
 @onready var screen_rect: Rect2 = get_viewport().get_visible_rect()
 
+var player: CharacterBody2D
 var player_movement_rect: Rect2
+
+var rocket: CharacterBody2D
 
 func _ready() -> void:
 	print(screen_rect)
@@ -24,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	handle_input(delta)
 
 func handle_input(delta: float) -> void:
-		
+
 	var move_direction: Vector2 = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
 		move_direction += Vector2.RIGHT
@@ -34,7 +38,14 @@ func handle_input(delta: float) -> void:
 		move_direction += Vector2.DOWN
 	if Input.is_action_pressed("move_up"):
 		move_direction += Vector2.UP
+		
+	player.move_player(move_direction.normalized(), delta, player_movement_rect)
 	
-	move_direction.normalized()
-
-	player.move_player(move_direction, delta, player_movement_rect)
+	if Input.is_action_just_pressed("ui_accept"):
+		fire()
+		
+func fire() -> void:
+	rocket = rocket_scene.instantiate()
+	rocket.position = player.position
+	rocket.position.y -= player.extents.y
+	add_child(rocket)
