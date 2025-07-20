@@ -7,12 +7,36 @@ extends CharacterBody2D
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 
 var rocket: Area2D
+var movement_limits: Rect2
+var rocket_manager: Node2D
 
-func move_player(move_direction: Vector2, delta: float, constrants: Rect2) -> void:
+func _physics_process(delta: float) -> void:
+	if not is_node_ready():
+		return
+	handle_input(delta)
+
+func handle_input(delta: float) -> void:
+
+	var move_direction: Vector2 = Vector2.ZERO
+	if Input.is_action_pressed("move_right"):
+		move_direction += Vector2.RIGHT
+	if Input.is_action_pressed("move_left"):
+		move_direction += Vector2.LEFT
+	if Input.is_action_pressed("move_down"):
+		move_direction += Vector2.DOWN
+	if Input.is_action_pressed("move_up"):
+		move_direction += Vector2.UP
+		
+	move_player(move_direction.normalized(), delta)
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		fire()
+
+func move_player(move_direction: Vector2, delta: float) -> void:
 	position += move_direction * delta * player_speed
 	position = position.clamp(
-		constrants.position + extents,
-		constrants.position + constrants.size - extents
+		movement_limits.position + extents,
+		movement_limits.position + movement_limits.size - extents
 	)
 	
 	if move_direction != Vector2.ZERO:
@@ -20,8 +44,8 @@ func move_player(move_direction: Vector2, delta: float, constrants: Rect2) -> vo
 	else:
 		sprite_2d.stop()
 
-func fire(manager: Node2D) -> void:
+func fire() -> void:
 	rocket = rocket_scene.instantiate()
 	rocket.position = position
 	rocket.position.y -= extents.y
-	manager.add_child(rocket)
+	rocket_manager.add_child(rocket)

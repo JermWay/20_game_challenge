@@ -16,29 +16,7 @@ func _ready() -> void:
 	player_movement_rect.position.y = screen_rect.size.y - player_movement_rect.size.y
 	
 	player.position = player_movement_rect.position + (player_movement_rect.size / 2)
-	add_child(player)
-
-func _physics_process(delta: float) -> void:
-	if player == null:
-		return
-	if not player.is_node_ready():
-		return
-	handle_input(delta)
-
-func handle_input(delta: float) -> void:
-
-	var move_direction: Vector2 = Vector2.ZERO
-	if Input.is_action_pressed("move_right"):
-		move_direction += Vector2.RIGHT
-	if Input.is_action_pressed("move_left"):
-		move_direction += Vector2.LEFT
-	if Input.is_action_pressed("move_down"):
-		move_direction += Vector2.DOWN
-	if Input.is_action_pressed("move_up"):
-		move_direction += Vector2.UP
-		
-	player.move_player(move_direction.normalized(), delta, player_movement_rect)
 	
-	if Input.is_action_just_pressed("ui_accept"):
-		player.fire(projectile_manager)
-		
+	player.movement_limits = player_movement_rect
+	player.rocket_manager = projectile_manager
+	add_child(player)
