@@ -1,14 +1,12 @@
 extends Node2D
 
 @export var player_scene: PackedScene
-@export var rocket_scene: PackedScene
 
 @onready var screen_rect: Rect2 = get_viewport().get_visible_rect()
+@onready var projectile_manager: Node2D = $ProjectileManager
 
 var player: CharacterBody2D
 var player_movement_rect: Rect2
-
-var rocket: CharacterBody2D
 
 func _ready() -> void:
 	player = player_scene.instantiate()
@@ -40,10 +38,5 @@ func handle_input(delta: float) -> void:
 	player.move_player(move_direction.normalized(), delta, player_movement_rect)
 	
 	if Input.is_action_just_pressed("ui_accept"):
-		fire()
+		player.fire(projectile_manager)
 		
-func fire() -> void:
-	rocket = rocket_scene.instantiate()
-	rocket.position = player.position
-	rocket.position.y -= player.extents.y
-	add_child(rocket)

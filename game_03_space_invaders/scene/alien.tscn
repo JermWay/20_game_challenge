@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://77aeae2f4pp0"]
+[gd_scene load_steps=9 format=3 uid="uid://77aeae2f4pp0"]
 
 [ext_resource type="Script" uid="uid://c03w0noxwrns" path="res://scripts/alien.gd" id="1_nm7cd"]
 [ext_resource type="Texture2D" uid="uid://ba5agfewurvu0" path="res://assets/art/alien02.png" id="2_7cbid"]
+[ext_resource type="PackedScene" uid="uid://cepa5v5ruim3q" path="res://scene/bomb.tscn" id="2_63g1e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63g1e"]
 atlas = ExtResource("2_7cbid")
@@ -37,6 +38,7 @@ radius = 15.95
 
 [node name="Alien" type="StaticBody2D"]
 script = ExtResource("1_nm7cd")
+bomb_scene = ExtResource("2_63g1e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

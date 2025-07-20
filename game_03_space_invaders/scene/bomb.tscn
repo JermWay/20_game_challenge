@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://cepa5v5ruim3q"]
+
+[ext_resource type="Script" uid="uid://ctrh22xmawakl" path="res://scripts/rocket.gd" id="1_coick"]
+[ext_resource type="Texture2D" uid="uid://c7f4pn1i6w5vj" path="res://assets/art/bomb.png" id="2_coick"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
+size = Vector2(8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjs2y"]
+atlas = ExtResource("2_coick")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r17kw"]
+atlas = ExtResource("2_coick")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue2tq"]
+atlas = ExtResource("2_coick")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnax7"]
+atlas = ExtResource("2_coick")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rnjvp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjs2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r17kw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ue2tq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnax7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bomb" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_coick")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tbgi4")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_rnjvp")
