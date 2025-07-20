@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var extents = $CollisionShape2D.shape.extents
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 
-var rocket: CharacterBody2D
+var rocket: Area2D
 
 func move_player(move_direction: Vector2, delta: float, constrants: Rect2) -> void:
 	position += move_direction * delta * player_speed

@@ -48,6 +48,13 @@ move_right={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Rocket"
+2d_physics/layer_3="Alien"
+2d_physics/layer_4="Bomb"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

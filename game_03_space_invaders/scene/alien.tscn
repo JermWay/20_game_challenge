@@ -37,6 +37,8 @@ animations = [{
 radius = 15.95
 
 [node name="Alien" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_nm7cd")
 bomb_scene = ExtResource("2_63g1e")
 

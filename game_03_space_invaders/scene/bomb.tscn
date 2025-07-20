@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cepa5v5ruim3q"]
 
-[ext_resource type="Script" uid="uid://ctrh22xmawakl" path="res://scripts/rocket.gd" id="1_coick"]
+[ext_resource type="Script" uid="uid://ctrh22xmawakl" path="res://scripts/bomb.gd" id="1_coick"]
 [ext_resource type="Texture2D" uid="uid://c7f4pn1i6w5vj" path="res://assets/art/bomb.png" id="2_coick"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
@@ -44,6 +44,8 @@ animations = [{
 
 [node name="Bomb" type="CharacterBody2D"]
 scale = Vector2(2, 2)
+collision_layer = 8
+collision_mask = 3
 script = ExtResource("1_coick")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
