@@ -42,7 +42,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Bomb" type="CharacterBody2D"]
+[node name="Bomb" type="Area2D"]
 scale = Vector2(2, 2)
 collision_layer = 8
 collision_mask = 3
@@ -54,3 +54,5 @@ shape = SubResource("RectangleShape2D_tbgi4")
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_rnjvp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

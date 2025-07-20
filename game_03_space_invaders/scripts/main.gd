@@ -19,6 +19,8 @@ func _ready() -> void:
 	add_child(player)
 
 func _physics_process(delta: float) -> void:
+	if player == null:
+		return
 	if not player.is_node_ready():
 		return
 	handle_input(delta)
