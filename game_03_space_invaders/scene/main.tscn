@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw0fksmvr226m"]
+
+[ext_resource type="Script" uid="uid://bwjx5qan08e66" path="res://scripts/main.gd" id="1_0ha60"]
+[ext_resource type="PackedScene" uid="uid://uscscfmfnwwf" path="res://scene/player.tscn" id="2_4j5ol"]
+[ext_resource type="PackedScene" uid="uid://g8yqdttybdaq" path="res://scene/rocket.tscn" id="3_p1hux"]
+[ext_resource type="Script" uid="uid://26217qvlbuo2" path="res://scripts/alien_manager.gd" id="4_of57s"]
+[ext_resource type="PackedScene" uid="uid://77aeae2f4pp0" path="res://scene/alien.tscn" id="5_b5f6u"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0ha60")
+player_scene = ExtResource("2_4j5ol")
+rocket_scene = ExtResource("3_p1hux")
+
+[node name="AlienManager" type="Node2D" parent="."]
+script = ExtResource("4_of57s")
+alien_scene = ExtResource("5_b5f6u")
+
+[node name="Timer" type="Timer" parent="AlienManager"]
+wait_time = 0.295
+autostart = true
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+editor_only = false
+
+[connection signal="timeout" from="AlienManager/Timer" to="AlienManager" method="_on_timer_timeout"]

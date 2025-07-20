@@ -11,14 +11,12 @@ var player_movement_rect: Rect2
 var rocket: CharacterBody2D
 
 func _ready() -> void:
-	print(screen_rect)
 	player = player_scene.instantiate()
 	player_movement_rect.size.x = screen_rect.size.x
 	player_movement_rect.size.y = screen_rect.size.y * .2
 	
 	player_movement_rect.position.y = screen_rect.size.y - player_movement_rect.size.y
 	
-	print(player_movement_rect)
 	player.position = player_movement_rect.position + (player_movement_rect.size / 2)
 	add_child(player)
 
