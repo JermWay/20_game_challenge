@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Area2D
 
 @export var bomb_scene: PackedScene
 
@@ -22,3 +22,8 @@ func fire(manager: Node2D) -> void:
 	bomb.global_position = global_position
 	bomb.global_position.y += radius
 	manager.add_child(bomb)
+
+
+func _on_body_entered(body: Node2D) -> void:
+	body.queue_free()
+	queue_free()

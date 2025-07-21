@@ -3,7 +3,7 @@ extends Node2D
 signal alien_moved
 
 @export var alien_scene: PackedScene
-@onready var alien_group: Node = $AlienGroup
+@onready var alien_group: Node2D = $AlienGroup
 @onready var projectile_manager: Node2D = $"../ProjectileManager"
 
 var direction := 1
@@ -23,7 +23,6 @@ func _ready() -> void:
 
 			alien_group.add_child(alien)
 			alien.connect_move_signal(self)
-	update_size()
 
 func aliens_in_bottom_row() -> Array:
 	var bottom_row: Array = []
@@ -37,33 +36,25 @@ func aliens_in_bottom_row() -> Array:
 	return bottom_row
 		
 func move_aliens() -> void:
-	var move_step := (12.5)
-	var new_position := position.x + (move_step * direction)
-	if new_position + alien_group_rect.size.x  > get_viewport_rect().size.x or new_position < 0:
-		position.y += 40
+	var move_step := 12.5
+	var new_position := move_step * direction
+	
+	if is_new_position_on_screen(new_position):
+		alien_group.position.x += new_position
+	else:	
+		alien_group.position.y += 40
 		direction *= -1
-	else:
-		position.x = new_position
+	
 	alien_moved.emit()
 	aliens_in_bottom_row().pick_random().fire(projectile_manager)
 	
-
-func update_size() -> void:
-	var lowest_position := get_viewport_rect().size
-	var highest_position := Vector2.ZERO
-	for child in alien_group.get_children():
-		if child is StaticBody2D:
-			if child.position.x < lowest_position.x:
-				lowest_position.x = child.position.x
-			if child.position.x > highest_position.x:
-				highest_position.x = child.position.x
-			if child.position.y < lowest_position.y:
-				lowest_position.y = child.position.y
-			if child.position.y > highest_position.y:
-				highest_position.y = child.position.y
-	alien_group_rect.size = highest_position-lowest_position
-	alien_group_rect.size += Vector2(32,32)
-	alien_group_rect.position = position - Vector2(16,16)
+func is_new_position_on_screen(move_step) -> bool:
+	for alien in alien_group.get_children():
+		if alien is Area2D:
+			if alien.global_position.x + move_step < 16 or alien.global_position.x + move_step > get_viewport_rect().size.x - 16:
+				return false
+	return true
 	
 func _on_timer_timeout() -> void:
-	move_aliens()
+	if alien_group.get_child_count() > 0:
+		move_aliens()
