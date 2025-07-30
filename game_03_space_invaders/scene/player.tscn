@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://uscscfmfnwwf"]
+[gd_scene load_steps=11 format=3 uid="uid://uscscfmfnwwf"]
 
 [ext_resource type="Script" uid="uid://bvm8lri375qbu" path="res://scripts/player.gd" id="1_y7wee"]
 [ext_resource type="PackedScene" uid="uid://g8yqdttybdaq" path="res://scene/rocket.tscn" id="2_fvtld"]
 [ext_resource type="Texture2D" uid="uid://donvwv7ab5pd5" path="res://assets/art/ship.png" id="2_mo4dg"]
+[ext_resource type="PackedScene" uid="uid://dkom284s7d7yf" path="res://scene/explode.tscn" id="3_ct4mp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2524"]
 atlas = ExtResource("2_mo4dg")
@@ -47,6 +48,7 @@ size = Vector2(32, 32)
 collision_mask = 12
 script = ExtResource("1_y7wee")
 rocket_scene = ExtResource("2_fvtld")
+explode_scene = ExtResource("3_ct4mp")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -54,3 +56,5 @@ sprite_frames = SubResource("SpriteFrames_1nf78")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tefeu")
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

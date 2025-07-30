@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @export var player_speed: float = 200
 @export var rocket_scene: PackedScene
+@export var explode_scene: PackedScene
+
 
 @onready var extents = $CollisionShape2D.shape.extents
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
@@ -49,3 +51,9 @@ func fire() -> void:
 	rocket.position = position
 	rocket.position.y -= extents.y
 	rocket_manager.add_child(rocket)
+
+
+func _on_tree_exiting() -> void:
+	var explode:CPUParticles2D = explode_scene.instantiate()
+	explode.global_position = global_position
+	get_tree().root.add_child(explode)

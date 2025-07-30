@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://g8yqdttybdaq"]
+[gd_scene load_steps=9 format=4 uid="uid://g8yqdttybdaq"]
 
 [ext_resource type="Texture2D" uid="uid://pt1qyswdof7o" path="res://assets/art/rocket.png" id="1_j20b5"]
 [ext_resource type="Script" uid="uid://svssqys1ka2c" path="res://scripts/rocket.gd" id="1_ncccc"]
+[ext_resource type="PackedScene" uid="uid://dkom284s7d7yf" path="res://scene/explode.tscn" id="2_xdddg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
 size = Vector2(8, 8)
@@ -54,6 +55,7 @@ scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 12
 script = ExtResource("1_ncccc")
+explode_scene = ExtResource("2_xdddg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tbgi4")

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkom284s7d7yf"]
+
+[ext_resource type="Script" uid="uid://cniy58118tdpj" path="res://scripts/explode.gd" id="1_0stt1"]
+[ext_resource type="AudioStream" uid="uid://bbtwqn58a3kbk" path="res://assets/sfx/explode.mp3" id="2_ns6df"]
+
+[sub_resource type="Curve" id="Curve_b8xc8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.316646), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Explode" type="CPUParticles2D"]
+emitting = false
+amount = 100
+lifetime = 0.25
+one_shot = true
+speed_scale = 0.5
+explosiveness = 1.0
+lifetime_randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_b8xc8")
+script = ExtResource("1_0stt1")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ns6df")
+autoplay = true
+
+[connection signal="finished" from="." to="." method="_on_finished"]
