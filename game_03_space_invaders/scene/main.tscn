@@ -63,7 +63,7 @@ grow_vertical = 2
 text = "100"
 label_settings = SubResource("LabelSettings_4j5ol")
 
-[node name="High Score" type="Label" parent="UI/Panel"]
+[node name="HighScore" type="Label" parent="UI/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

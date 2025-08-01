@@ -57,4 +57,8 @@ sprite_frames = SubResource("SpriteFrames_1nf78")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tefeu")
 
-[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[node name="RespawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

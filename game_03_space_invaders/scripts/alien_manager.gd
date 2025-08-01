@@ -9,6 +9,7 @@ signal alien_moved
 var direction := 1
 var is_at_edge := false
 var alien_group_rect: Rect2
+var pause_movement: bool = false
 
 func _ready() -> void:
 	for col in range(6):
@@ -57,5 +58,13 @@ func is_new_position_on_screen(move_step) -> bool:
 	return true
 	
 func _on_timer_timeout() -> void:
-	if alien_group.get_child_count() > 0:
+	if alien_group.get_child_count() > 0 and not pause_movement:
 		move_aliens()
+	
+func on_player_spawn() -> void:
+	await get_tree().create_timer(1).timeout
+	pause_movement = false
+	
+func on_player_hit() -> void:
+	pause_movement = true
+	

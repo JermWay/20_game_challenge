@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal player_hit
+signal player_spawn
+
 @export var player_speed: float = 200
 @export var rocket_scene: PackedScene
 @export var explode_scene: PackedScene
@@ -7,6 +10,7 @@ extends CharacterBody2D
 
 @onready var extents = $CollisionShape2D.shape.extents
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
+@onready var respawn_timer: Timer = $RespawnTimer
 
 var rocket: Area2D
 var movement_limits: Rect2
@@ -14,7 +18,7 @@ var rocket_manager: Node2D
 var ui: Control
 
 func _physics_process(delta: float) -> void:
-	if not is_node_ready():
+	if not is_node_ready() or not visible:
 		return
 	handle_input(delta)
 
@@ -54,8 +58,16 @@ func fire() -> void:
 	rocket.connect("alien_hit", ui.on_alien_hit)
 	rocket_manager.add_child(rocket)
 
+func _on_visibility_changed() -> void:
+	if not visible:
+		player_hit.emit()
+		var explode:CPUParticles2D = explode_scene.instantiate()
+		explode.global_position = global_position
+		get_tree().root.add_child.call_deferred(explode)
+		if ui.get_lives() > 0:
+			ui.remove_life()
+			respawn_timer.start()
 
-func _on_tree_exiting() -> void:
-	var explode:CPUParticles2D = explode_scene.instantiate()
-	explode.global_position = global_position
-	get_tree().root.add_child(explode)
+func _on_respawn_timer_timeout() -> void:
+	visible = true
+	player_spawn.emit()
