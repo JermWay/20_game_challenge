@@ -4,6 +4,7 @@ extends Node2D
 
 @onready var screen_rect: Rect2 = get_viewport().get_visible_rect()
 @onready var projectile_manager: Node2D = $ProjectileManager
+@onready var ui: Control = $UI
 
 var player: CharacterBody2D
 var player_movement_rect: Rect2
@@ -19,4 +20,5 @@ func _ready() -> void:
 	
 	player.movement_limits = player_movement_rect
 	player.rocket_manager = projectile_manager
+	player.ui = ui
 	add_child(player)

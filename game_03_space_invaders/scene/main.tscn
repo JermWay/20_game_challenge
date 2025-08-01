@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw0fksmvr226m"]
+[gd_scene load_steps=10 format=3 uid="uid://bw0fksmvr226m"]
 
 [ext_resource type="Script" uid="uid://bwjx5qan08e66" path="res://scripts/main.gd" id="1_0ha60"]
 [ext_resource type="PackedScene" uid="uid://uscscfmfnwwf" path="res://scene/player.tscn" id="2_4j5ol"]
 [ext_resource type="Script" uid="uid://26217qvlbuo2" path="res://scripts/alien_manager.gd" id="4_of57s"]
+[ext_resource type="Texture2D" uid="uid://donvwv7ab5pd5" path="res://assets/art/ship.png" id="5_0ha60"]
+[ext_resource type="Script" uid="uid://wxkhi2qgaeai" path="res://scripts/ui.gd" id="5_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://77aeae2f4pp0" path="res://scene/alien.tscn" id="5_b5f6u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4j5ol"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0ha60"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1hux"]
+atlas = ExtResource("5_0ha60")
+region = Rect2(1, 7, 30, 24)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0ha60")
@@ -20,5 +30,80 @@ autostart = true
 [node name="AlienGroup" type="Node2D" parent="AlienManager"]
 
 [node name="ProjectileManager" type="Node2D" parent="."]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("5_4j5ol")
+
+[node name="Panel" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 400.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="Score" type="Label" parent="UI/Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 13.5
+offset_top = -11.5
+offset_right = 55.5
+offset_bottom = 11.5
+grow_vertical = 2
+text = "100"
+label_settings = SubResource("LabelSettings_4j5ol")
+
+[node name="High Score" type="Label" parent="UI/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = -11.5
+offset_right = 14.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "100"
+label_settings = SubResource("LabelSettings_0ha60")
+
+[node name="Lives" type="HBoxContainer" parent="UI/Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -12.0
+offset_right = -13.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="Life" type="TextureRect" parent="UI/Panel/Lives"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_p1hux")
+
+[node name="Life2" type="TextureRect" parent="UI/Panel/Lives"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_p1hux")
+
+[node name="Life3" type="TextureRect" parent="UI/Panel/Lives"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_p1hux")
 
 [connection signal="timeout" from="AlienManager/Timer" to="AlienManager" method="_on_timer_timeout"]

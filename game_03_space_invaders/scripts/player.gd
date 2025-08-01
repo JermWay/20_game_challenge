@@ -11,6 +11,7 @@ extends CharacterBody2D
 var rocket: Area2D
 var movement_limits: Rect2
 var rocket_manager: Node2D
+var ui: Control
 
 func _physics_process(delta: float) -> void:
 	if not is_node_ready():
@@ -50,6 +51,7 @@ func fire() -> void:
 	rocket = rocket_scene.instantiate()
 	rocket.position = position
 	rocket.position.y -= extents.y
+	rocket.connect("alien_hit", ui.on_alien_hit)
 	rocket_manager.add_child(rocket)
 
 
