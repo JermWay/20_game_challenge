@@ -28,15 +28,15 @@ func on_alien_hit() -> void:
 	score_count += 1
 
 func remove_life() -> void:
-	if high_score_count < score_count:
-		high_score_count = score_count
-		save_score()
+	save_score()
 	lives.get_child(0).queue_free()
 
 func get_lives() -> int:
 	return lives.get_child_count()
 	
 func save_score():
+	if high_score_count < score_count:
+		high_score_count = score_count
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	file.store_var(high_score_count)
 

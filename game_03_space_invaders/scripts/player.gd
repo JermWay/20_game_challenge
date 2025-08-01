@@ -60,14 +60,17 @@ func fire() -> void:
 
 func _on_visibility_changed() -> void:
 	if not visible:
+		ui.save_score()
 		player_hit.emit()
 		var explode:CPUParticles2D = explode_scene.instantiate()
 		explode.global_position = global_position
 		get_tree().root.add_child.call_deferred(explode)
-		if ui.get_lives() > 0:
-			ui.remove_life()
-			respawn_timer.start()
-
+		ui.remove_life()
+		respawn_timer.start()
+	
 func _on_respawn_timer_timeout() -> void:
-	visible = true
-	player_spawn.emit()
+	if ui.get_lives() > 0:
+		visible = true
+		player_spawn.emit()
+	else:
+		get_tree().reload_current_scene()
