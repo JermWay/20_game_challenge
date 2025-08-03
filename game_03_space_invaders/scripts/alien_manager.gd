@@ -6,7 +6,8 @@ signal alien_moved
 @onready var alien_group: Node2D = $AlienGroup
 @onready var projectile_manager: Node2D = $"../ProjectileManager"
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
-@onready var timer: Timer = $Timer
+@onready var move_timer: Timer = $MoveTimer
+@onready var fire_timer: Timer = $FireTimer
 
 var direction := 1
 var is_at_edge := false
@@ -54,7 +55,6 @@ func move_aliens() -> void:
 	
 	audio_stream_player.play()
 	alien_moved.emit()
-	aliens_in_bottom_row().pick_random().fire(projectile_manager)
 	
 func is_new_position_on_screen(move_step) -> bool:
 	for column in alien_group.get_children():
@@ -64,10 +64,10 @@ func is_new_position_on_screen(move_step) -> bool:
 					return false
 	return true
 	
-func _on_timer_timeout() -> void:
+func _on_move_timer_timeout() -> void:
 	if get_alien_count() > 0 and not pause_movement:
 		move_aliens()
-		timer.start(get_alien_count()/alien_start_count)
+		move_timer.start(get_alien_count()/alien_start_count)
 		audio_stream_player.pitch_scale = 1 + get_alien_count() / alien_start_count
 	
 func on_player_spawn() -> void:
@@ -85,3 +85,9 @@ func get_alien_count() -> float:
 				alien_count += 1
 	return alien_count
 	
+
+
+func _on_fire_timer_timeout() -> void:
+	fire_timer.wait_time = randf() * 3.0
+	aliens_in_bottom_row().pick_random().fire(projectile_manager)
+	fire_timer.start()

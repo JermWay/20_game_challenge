@@ -24,8 +24,12 @@ player_scene = ExtResource("2_4j5ol")
 script = ExtResource("4_of57s")
 alien_scene = ExtResource("5_b5f6u")
 
-[node name="Timer" type="Timer" parent="AlienManager"]
+[node name="MoveTimer" type="Timer" parent="AlienManager"]
 wait_time = 0.295
+autostart = true
+
+[node name="FireTimer" type="Timer" parent="AlienManager"]
+one_shot = true
 autostart = true
 
 [node name="AlienGroup" type="Node2D" parent="AlienManager"]
@@ -110,4 +114,5 @@ texture = SubResource("AtlasTexture_p1hux")
 layout_mode = 2
 texture = SubResource("AtlasTexture_p1hux")
 
-[connection signal="timeout" from="AlienManager/Timer" to="AlienManager" method="_on_timer_timeout"]
+[connection signal="timeout" from="AlienManager/MoveTimer" to="AlienManager" method="_on_move_timer_timeout"]
+[connection signal="timeout" from="AlienManager/FireTimer" to="AlienManager" method="_on_fire_timer_timeout"]
