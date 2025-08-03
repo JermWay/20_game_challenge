@@ -24,6 +24,5 @@ func fire(manager: Node2D) -> void:
 	manager.add_child(bomb)
 
 
-func _on_body_entered(body: Node2D) -> void:
-	body.queue_free()
-	queue_free()
+func _on_body_entered(_body: Node2D) -> void:
+	get_tree().call_deferred("reload_current_scene")

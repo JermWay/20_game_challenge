@@ -9,7 +9,7 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	position.y += delta * speed
-	if position.y > 400:
+	if global_position.y > get_viewport().get_visible_rect().size.y:
 		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:

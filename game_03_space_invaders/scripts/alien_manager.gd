@@ -34,7 +34,11 @@ func _ready() -> void:
 			column.add_child(alien)
 			alien_start_count += 1
 			alien.connect_move_signal(self)
-	
+
+func _process(_delta: float) -> void:
+	if is_alien_at_bottom():
+		get_tree().call_deferred("reload_current_scene")
+
 func aliens_in_bottom_row() -> Array:
 	var bottom_row: Array = []
 	var aliens_alive := alien_group.get_children()
@@ -55,6 +59,14 @@ func move_aliens() -> void:
 	
 	audio_stream_player.play()
 	alien_moved.emit()
+
+func is_alien_at_bottom() -> bool:
+	for column in alien_group.get_children():
+		for alien in column.get_children():
+			if alien is Area2D:
+				if alien.global_position.y > get_viewport_rect().size.y:
+					return true
+	return false
 	
 func is_new_position_on_screen(move_step) -> bool:
 	for column in alien_group.get_children():

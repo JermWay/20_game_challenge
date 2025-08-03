@@ -7,7 +7,7 @@ signal alien_hit
 
 func _process(delta: float) -> void:
 	position.y -= delta * speed
-	if position.y < 0:
+	if position.y < 50:
 		queue_free()
 
 func _on_area_entered(area: Area2D) -> void:

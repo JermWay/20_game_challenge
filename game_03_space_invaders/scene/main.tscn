@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bw0fksmvr226m"]
+[gd_scene load_steps=12 format=3 uid="uid://bw0fksmvr226m"]
 
 [ext_resource type="Script" uid="uid://bwjx5qan08e66" path="res://scripts/main.gd" id="1_0ha60"]
 [ext_resource type="PackedScene" uid="uid://uscscfmfnwwf" path="res://scene/player.tscn" id="2_4j5ol"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://wxkhi2qgaeai" path="res://scripts/ui.gd" id="5_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://77aeae2f4pp0" path="res://scene/alien.tscn" id="5_b5f6u"]
 [ext_resource type="AudioStream" uid="uid://ftp4kl1jypc6" path="res://assets/sfx/alien_move.mp3" id="5_p1hux"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1hux"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4j5ol"]
 
@@ -21,6 +23,7 @@ script = ExtResource("1_0ha60")
 player_scene = ExtResource("2_4j5ol")
 
 [node name="AlienManager" type="Node2D" parent="."]
+position = Vector2(0, 50)
 script = ExtResource("4_of57s")
 alien_scene = ExtResource("5_b5f6u")
 
@@ -57,6 +60,7 @@ anchor_right = 1.0
 offset_right = 400.0
 offset_bottom = 50.0
 grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p1hux")
 
 [node name="Score" type="Label" parent="UI/Panel"]
 layout_mode = 1
