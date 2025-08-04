@@ -2,7 +2,9 @@ extends Node2D
 
 signal alien_moved
 
-@export var alien_scene: PackedScene
+@export var alien_01_scene: PackedScene
+@export var alien_02_scene: PackedScene
+
 @onready var alien_group: Node2D = $AlienGroup
 @onready var projectile_manager: Node2D = $"../ProjectileManager"
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
@@ -18,12 +20,19 @@ const COL: int = 6
 const ROW: int = 4
 
 func _ready() -> void:
+	initalize_alien_group()
+		
+func initalize_alien_group() -> void:
 	for col in range(COL):
 		var column = Node2D.new()
 		column.name = "column%s" % str(col)
 		alien_group.add_child(column)
 		for row in range(ROW):
-			var alien := alien_scene.instantiate()
+			var alien
+			if row % 2 == 0:
+				alien = alien_01_scene.instantiate()
+			else:
+				alien = alien_02_scene.instantiate()
 			var spacing := Vector2(16,8)
 			alien.position = Vector2(
 				col * (32 + spacing.x),

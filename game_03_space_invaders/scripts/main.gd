@@ -1,7 +1,6 @@
 extends Node2D
 
 @export var player_scene: PackedScene
-
 @onready var screen_rect: Rect2 = get_viewport().get_visible_rect()
 @onready var projectile_manager: Node2D = $ProjectileManager
 @onready var ui: Control = $UI

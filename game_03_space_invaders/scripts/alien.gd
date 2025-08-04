@@ -15,14 +15,13 @@ func connect_move_signal(manager: Node2D) -> void:
 	manager.connect("alien_moved", _moved)
 
 func _moved() -> void:
-	animated_sprite_2d.frame = (animated_sprite_2d.frame + 1) % 3
+	animated_sprite_2d.frame = (animated_sprite_2d.frame + 1) % animated_sprite_2d.sprite_frames.get_frame_count("default")
 	
 func fire(manager: Node2D) -> void:
 	bomb = bomb_scene.instantiate()
 	bomb.global_position = global_position
 	bomb.global_position.y += radius
 	manager.add_child(bomb)
-
 
 func _on_body_entered(_body: Node2D) -> void:
 	get_tree().call_deferred("reload_current_scene")

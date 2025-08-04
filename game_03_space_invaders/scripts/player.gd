@@ -9,7 +9,7 @@ signal player_spawn
 
 
 @onready var extents = $CollisionShape2D.shape.extents
-@onready var sprite_2d: AnimatedSprite2D = $Sprite2D
+@onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var respawn_timer: Timer = $RespawnTimer
 
 var rocket: Area2D
@@ -45,11 +45,6 @@ func move_player(move_direction: Vector2, delta: float) -> void:
 		movement_limits.position + extents,
 		movement_limits.position + movement_limits.size - extents
 	)
-	
-	if move_direction != Vector2.ZERO:
-		sprite_2d.play("default")
-	else:
-		sprite_2d.stop()
 
 func fire() -> void:
 	rocket = rocket_scene.instantiate()

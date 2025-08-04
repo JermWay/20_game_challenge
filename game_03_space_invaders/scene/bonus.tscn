@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bg3tynsrxakfb"]
+
+[ext_resource type="Texture2D" uid="uid://ch5j7tqnj57f3" path="res://assets/art/bonus.png" id="1_sgi28"]
+
+[sub_resource type="GDScript" id="GDScript_sgi28"]
+script/source = "extends Area2D
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w57qv"]
+radius = 8.0
+height = 32.0
+
+[node name="Bonus" type="Area2D" groups=["bonus"]]
+collision_layer = 4
+collision_mask = 3
+script = SubResource("GDScript_sgi28")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_sgi28")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_w57qv")

@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://c1eg4gskdgedj"]
+
+[ext_resource type="Texture2D" uid="uid://kw8vktyws52r" path="res://assets/art/alien01.png" id="1_a03ij"]
+[ext_resource type="Script" uid="uid://c03w0noxwrns" path="res://scripts/alien.gd" id="1_nm7cd"]
+[ext_resource type="PackedScene" uid="uid://cepa5v5ruim3q" path="res://scene/bomb.tscn" id="2_63g1e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0iuh"]
+atlas = ExtResource("1_a03ij")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6a2k"]
+atlas = ExtResource("1_a03ij")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28304"]
+atlas = ExtResource("1_a03ij")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m34wx"]
+atlas = ExtResource("1_a03ij")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhtf7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0iuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6a2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28304")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m34wx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b8olt"]
+radius = 16.0
+
+[node name="Alien02" type="Area2D" groups=["alien"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_nm7cd")
+bomb_scene = ExtResource("2_63g1e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_bhtf7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b8olt")
