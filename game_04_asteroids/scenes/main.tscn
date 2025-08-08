@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkvtt1ak0w1rv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sgp6g"]
+font_size = 246
+font_color = Color(0.984314, 0.984314, 0.984314, 1)
+shadow_size = 25
+shadow_color = Color(0.774734, 0.000462633, 0.774729, 1)
+shadow_offset = Vector2(10, 8.5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sgp6g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wfyh"]
+bg_color = Color(0.187176, 0.187176, 0.187176, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.517184, 0.517184, 0.517184, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.776471, 0, 0.776471, 0.882353)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5qli"]
+bg_color = Color(0.147672, 0.147672, 0.147672, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.201526, 0.201527, 0.201526, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.776471, 0, 0.776471, 0.882353)
+shadow_size = 2
+
+[node name="Main" type="Node2D"]
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="PanelContainer" type="PanelContainer" parent="MainMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MainMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Asteroids"
+label_settings = SubResource("LabelSettings_sgp6g")
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="MainMenu/MarginContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 126
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sgp6g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0wfyh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o5qli")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0wfyh")
+text = "Start"
