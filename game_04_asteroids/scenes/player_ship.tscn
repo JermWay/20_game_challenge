@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c43feds8d852g"]
+
+[ext_resource type="Texture2D" uid="uid://c0icfbli81nql" path="res://assets/art/ship.png" id="1_wbtlb"]
+[ext_resource type="Script" uid="uid://bgvdw5iuckka" path="res://scripts/player_ship.gd" id="1_ye4q7"]
+
+[node name="PlayerShip" type="CharacterBody2D"]
+script = ExtResource("1_ye4q7")
+acceleration = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wbtlb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -16, -16, 16, 0, 1, 16, 16)

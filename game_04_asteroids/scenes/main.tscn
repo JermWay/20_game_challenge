@@ -1,4 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkvtt1ak0w1rv"]
+[gd_scene load_steps=7 format=3 uid="uid://bkvtt1ak0w1rv"]
+
+[ext_resource type="Script" uid="uid://d0cl3o1c1pawm" path="res://scripts/main_menu.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://c43feds8d852g" path="res://scenes/player_ship.tscn" id="2_0wfyh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sgp6g"]
 font_size = 246
@@ -44,6 +47,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
+script = ExtResource("1_o5qli")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 layout_mode = 1
@@ -79,3 +83,9 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_0wfyh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_o5qli")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0wfyh")
 text = "Start"
+
+[node name="Game" type="Node" parent="."]
+
+[node name="PlayerShip" parent="Game" instance=ExtResource("2_0wfyh")]
+
+[connection signal="pressed" from="MainMenu/MarginContainer/StartButton" to="MainMenu" method="_on_start_button_pressed"]
