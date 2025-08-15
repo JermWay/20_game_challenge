@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c43feds8d852g"]
+[gd_scene load_steps=4 format=3 uid="uid://c43feds8d852g"]
 
 [ext_resource type="Texture2D" uid="uid://c0icfbli81nql" path="res://assets/art/ship.png" id="1_wbtlb"]
 [ext_resource type="Script" uid="uid://bgvdw5iuckka" path="res://scripts/player_ship.gd" id="1_ye4q7"]
+[ext_resource type="AudioStream" uid="uid://b1bke3fcte0ik" path="res://assets/sfx/thruster.mp3" id="3_7t0u0"]
 
 [node name="PlayerShip" type="CharacterBody2D"]
 script = ExtResource("1_ye4q7")
@@ -12,3 +13,6 @@ texture = ExtResource("1_wbtlb")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -16, -16, 16, 0, 1, 16, 16)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7t0u0")
