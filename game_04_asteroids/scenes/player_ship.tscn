@@ -1,12 +1,69 @@
-[gd_scene load_steps=4 format=3 uid="uid://c43feds8d852g"]
+[gd_scene load_steps=6 format=3 uid="uid://c43feds8d852g"]
 
 [ext_resource type="Texture2D" uid="uid://c0icfbli81nql" path="res://assets/art/ship.png" id="1_wbtlb"]
 [ext_resource type="Script" uid="uid://bgvdw5iuckka" path="res://scripts/player_ship.gd" id="1_ye4q7"]
 [ext_resource type="AudioStream" uid="uid://b1bke3fcte0ik" path="res://assets/sfx/thruster.mp3" id="3_7t0u0"]
 
+[sub_resource type="Curve" id="Curve_7t0u0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.134832), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ys4te"]
+colors = PackedColorArray(0.230315, 0.230315, 0.230315, 1, 1, 1, 1, 1)
+
 [node name="PlayerShip" type="CharacterBody2D"]
 script = ExtResource("1_ye4q7")
 acceleration = 1.0
+
+[node name="ThrusterParticles" type="Node2D" parent="."]
+
+[node name="Center" type="CPUParticles2D" parent="ThrusterParticles"]
+z_index = -1
+position = Vector2(0, 2)
+emitting = false
+amount = 100
+lifetime = 0.25
+speed_scale = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 2.25
+radial_accel_max = 100.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_7t0u0")
+color = Color(1, 0.854902, 0.443137, 1)
+color_ramp = SubResource("Gradient_ys4te")
+
+[node name="Left" type="CPUParticles2D" parent="ThrusterParticles"]
+z_index = -1
+position = Vector2(-15, 15)
+amount = 50
+lifetime = 0.21
+speed_scale = 0.3
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 0.5
+radial_accel_max = 50.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_7t0u0")
+color = Color(1, 0.854902, 0.443137, 1)
+color_ramp = SubResource("Gradient_ys4te")
+
+[node name="Right" type="CPUParticles2D" parent="ThrusterParticles"]
+z_index = -1
+position = Vector2(15, 15)
+amount = 50
+lifetime = 0.21
+speed_scale = 0.3
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 0.5
+radial_accel_max = 50.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_7t0u0")
+color = Color(1, 0.854902, 0.443137, 1)
+color_ramp = SubResource("Gradient_ys4te")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_wbtlb")
