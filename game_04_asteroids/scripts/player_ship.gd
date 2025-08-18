@@ -22,25 +22,12 @@ func _process(_delta: float) -> void:
 		thruster_sfx.playing = is_accelerating or is_rotating
 		
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("fire"):
-		if fire_sfx.playing:
-			fire_sfx.stop()
-		fire_sfx.play()
-		bullet_pool.fire(global_position, rotation)
-		
-	var rotation_input: float = 0.0
-	if Input.is_action_pressed("turn_left"):
-		rotation_input -= 1.0
-	if Input.is_action_pressed("turn_right"):
-		rotation_input += 1.0
-	
-	is_rotating = Input.is_action_pressed("turn_right") or Input.is_action_pressed("turn_left")
-	thruster_particles_left.emitting = Input.is_action_pressed("turn_right")
-	thruster_particles_right.emitting = Input.is_action_pressed("turn_left")
-	
-	rotate(rotation_input * rotation_speed * delta)
-	var facing_direction: Vector2 = Vector2.UP.rotated(rotation)
+	handle_fire()
+	handle_rotation(delta)
+	handle_thrust(delta)
 
+func handle_thrust(delta: float) -> void:
+	var facing_direction: Vector2 = Vector2.UP.rotated(rotation)
 	var target_velocity: Vector2 = Vector2.ZERO
 	if Input.is_action_pressed("thrust"):
 		target_velocity = facing_direction * speed
@@ -51,3 +38,25 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity.lerp(target_velocity, acceleration * delta)
 	move_and_slide()
 	
+func handle_rotation(delta: float) -> void:
+	var left = Input.is_action_pressed("turn_left")
+	var right = Input.is_action_pressed("turn_right")
+	var rotation_input: float = 0.0
+	
+	if left:
+		rotation_input -= 1.0
+	if right:
+		rotation_input += 1.0
+	
+	is_rotating = right or left
+	thruster_particles_left.emitting = right
+	thruster_particles_right.emitting = left
+	
+	rotate(rotation_input * rotation_speed * delta)
+	
+func handle_fire() -> void:
+	if Input.is_action_just_pressed("fire"):
+		if fire_sfx.playing:
+			fire_sfx.stop()
+		fire_sfx.play()
+		bullet_pool.fire(global_position, rotation)
