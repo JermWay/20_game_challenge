@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var rotation_speed: float = 2.0
 @export var speed: float = 150.0
 @export var acceleration: float = 0.01
+@export var bullet_pool: Node
 
 var is_accelerating: bool = false
 var is_rotating: bool = false
@@ -20,6 +21,9 @@ func _process(_delta: float) -> void:
 		thruster_sfx.playing = is_accelerating or is_rotating
 		
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("fire"):
+		bullet_pool.fire(global_position, rotation)
+		
 	var rotation_input: float = 0.0
 	if Input.is_action_pressed("turn_left"):
 		rotation_input -= 1.0
@@ -42,3 +46,4 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = velocity.lerp(target_velocity, acceleration * delta)
 	move_and_slide()
+	
