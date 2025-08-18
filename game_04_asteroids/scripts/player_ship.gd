@@ -8,7 +8,8 @@ extends CharacterBody2D
 var is_accelerating: bool = false
 var is_rotating: bool = false
 
-@onready var thruster_sfx: AudioStreamPlayer = $AudioStreamPlayer
+@onready var thruster_sfx: AudioStreamPlayer = $ThrusterSFX
+@onready var fire_sfx: AudioStreamPlayer = $FireSFX
 @onready var thruster_particles_center: CPUParticles2D = $ThrusterParticles/Center
 @onready var thruster_particles_left: CPUParticles2D = $ThrusterParticles/Left
 @onready var thruster_particles_right: CPUParticles2D = $ThrusterParticles/Right
@@ -22,6 +23,9 @@ func _process(_delta: float) -> void:
 		
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("fire"):
+		if fire_sfx.playing:
+			fire_sfx.stop()
+		fire_sfx.play()
 		bullet_pool.fire(global_position, rotation)
 		
 	var rotation_input: float = 0.0
