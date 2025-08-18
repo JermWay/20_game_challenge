@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkvtt1ak0w1rv"]
+[gd_scene load_steps=11 format=3 uid="uid://bkvtt1ak0w1rv"]
 
 [ext_resource type="Script" uid="uid://d0cl3o1c1pawm" path="res://scripts/main_menu.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://c43feds8d852g" path="res://scenes/player_ship.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://b8rxio2fngcnr" path="res://scripts/bullet_pool_manager.gd" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://f7havdhdq5cb" path="res://scenes/bullet.tscn" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://dbqt5r7o1t3ue" path="res://scripts/asteroid_manager.gd" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://ctyfn8sj8oi3p" path="res://scenes/asteroid_large.tscn" id="6_tefeu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sgp6g"]
 font_size = 246
@@ -94,5 +96,9 @@ bullet_pool = NodePath("../BulletPool")
 [node name="BulletPool" type="Node" parent="Game"]
 script = ExtResource("3_jyhfs")
 bullet_scene = ExtResource("4_tbgi4")
+
+[node name="Asteroids" type="Node" parent="Game"]
+script = ExtResource("5_tbgi4")
+asteroid_large_scene = ExtResource("6_tefeu")
 
 [connection signal="pressed" from="MainMenu/MarginContainer/StartButton" to="MainMenu" method="_on_start_button_pressed"]
