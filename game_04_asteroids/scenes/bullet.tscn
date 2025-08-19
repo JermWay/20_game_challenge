@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://f7havdhdq5cb"]
+[gd_scene load_steps=5 format=3 uid="uid://f7havdhdq5cb"]
 
 [ext_resource type="Script" uid="uid://b2dtm58qsr5l0" path="res://scripts/bullet.gd" id="1_y25gk"]
 [ext_resource type="Texture2D" uid="uid://cjxxo1hwycv1g" path="res://assets/art/bullet.png" id="2_l5glv"]
+[ext_resource type="PackedScene" uid="uid://bfgvb6spi3s7r" path="res://scenes/screen_wrapper.tscn" id="3_l5glv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ni5w"]
 size = Vector2(10, 10)
@@ -16,5 +17,8 @@ texture = ExtResource("2_l5glv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7ni5w")
+
+[node name="ScreenWrapper" parent="." node_paths=PackedStringArray("collider") instance=ExtResource("3_l5glv")]
+collider = NodePath("../CollisionShape2D")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

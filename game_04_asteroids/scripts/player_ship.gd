@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 	handle_fire()
 	handle_rotation(delta)
 	handle_thrust(delta)
-
+	
 func handle_thrust(delta: float) -> void:
 	var facing_direction: Vector2 = Vector2.UP.rotated(rotation)
 	var target_velocity: Vector2 = Vector2.ZERO

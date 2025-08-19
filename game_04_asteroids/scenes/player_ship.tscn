@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c43feds8d852g"]
+[gd_scene load_steps=8 format=3 uid="uid://c43feds8d852g"]
 
 [ext_resource type="Texture2D" uid="uid://c0icfbli81nql" path="res://assets/art/ship.png" id="1_wbtlb"]
 [ext_resource type="Script" uid="uid://bgvdw5iuckka" path="res://scripts/player_ship.gd" id="1_ye4q7"]
 [ext_resource type="AudioStream" uid="uid://b1bke3fcte0ik" path="res://assets/sfx/thruster.mp3" id="3_7t0u0"]
 [ext_resource type="AudioStream" uid="uid://b45dkw4jq37bv" path="res://assets/sfx/laser.wav" id="4_ys4te"]
+[ext_resource type="PackedScene" uid="uid://bfgvb6spi3s7r" path="res://scenes/screen_wrapper.tscn" id="5_7ni5w"]
 
 [sub_resource type="Curve" id="Curve_7t0u0"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.134832), 1.4, 0.0, 0, 0]
@@ -77,3 +78,5 @@ stream = ExtResource("3_7t0u0")
 
 [node name="FireSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_ys4te")
+
+[node name="ScreenWrapper" parent="." instance=ExtResource("5_7ni5w")]
