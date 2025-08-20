@@ -11,7 +11,7 @@ func _physics_process(delta: float) -> void:
 	position += direction.normalized() * speed * delta
 	
 func initialize_asteroid(start_position: Vector2, start_direction: Vector2) -> void:
-	size = Vector2($CollisionShape2D.shape.radius, $CollisionShape2D.shape.radius)
+	size = Vector2($CollisionShape2D.shape.radius, $CollisionShape2D.shape.radius) * global_scale
 	direction = start_direction
 	position = start_position
 	

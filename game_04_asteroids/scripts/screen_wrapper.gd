@@ -8,7 +8,6 @@ var half_size: Vector2
 
 func _ready() -> void:
 	if collider != null:
-		print(collider.get_class())
 		if collider is CollisionPolygon2D:
 			half_size = get_polygon_half_size(collider)
 		elif collider is CollisionShape2D:
@@ -16,6 +15,7 @@ func _ready() -> void:
 				half_size = collider.shape.extents
 			elif collider.shape is CircleShape2D:
 				half_size = Vector2(collider.shape.radius, collider.shape.radius)
+		half_size = half_size * parent.global_scale
 	
 func _physics_process(_delta: float) -> void:
 	screen_wrap_position()

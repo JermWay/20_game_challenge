@@ -9,6 +9,7 @@
 radius = 32.0
 
 [node name="AsteroidLarge" type="Area2D"]
+scale = Vector2(3, 3)
 script = ExtResource("1_8xjg5")
 next_asteroid_scene = ExtResource("2_jsyga")
 
