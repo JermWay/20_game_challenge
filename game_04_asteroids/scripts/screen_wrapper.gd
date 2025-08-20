@@ -17,7 +17,7 @@ func _ready() -> void:
 			elif collider.shape is CircleShape2D:
 				half_size = Vector2(collider.shape.radius, collider.shape.radius)
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	screen_wrap_position()
 	
 func screen_wrap_position() -> void:

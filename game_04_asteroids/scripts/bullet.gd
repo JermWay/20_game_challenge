@@ -15,8 +15,7 @@ func move(delta: float) -> void:
 		position += Vector2.UP.rotated(rotation) * bullet_speed * delta
 		var viewport_size = get_viewport_rect().size
 		if distance_traveled > min(viewport_size.x, viewport_size.y) * .33:
-			is_moving = false
-			visible = false
+			stop()
 
 func fire(start_position: Vector2, start_rotation: float) -> void:
 	global_position = start_position
@@ -24,3 +23,8 @@ func fire(start_position: Vector2, start_rotation: float) -> void:
 	visible = true
 	is_moving = true
 	distance_traveled = 0
+
+func stop() -> void:
+	is_moving = false
+	visible = false
+	

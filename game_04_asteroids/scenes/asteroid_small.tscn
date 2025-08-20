@@ -1,14 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3h713yf1mh8d"]
+[gd_scene load_steps=5 format=3 uid="uid://d3h713yf1mh8d"]
 
 [ext_resource type="Texture2D" uid="uid://mfrm7u6rp276" path="res://assets/art/asteroid_small.png" id="1_2rqvc"]
+[ext_resource type="Script" uid="uid://c4881nxuqida4" path="res://scripts/asteroid.gd" id="1_x7wxb"]
+[ext_resource type="PackedScene" uid="uid://bfgvb6spi3s7r" path="res://scenes/screen_wrapper.tscn" id="3_qo6y1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sufu7"]
 radius = 8.0
 
 [node name="AsteroidSmall" type="Area2D"]
+script = ExtResource("1_x7wxb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_2rqvc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_sufu7")
+
+[node name="ScreenWrapper" parent="." node_paths=PackedStringArray("collider") instance=ExtResource("3_qo6y1")]
+collider = NodePath("../CollisionShape2D")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
