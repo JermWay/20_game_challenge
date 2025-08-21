@@ -13,10 +13,9 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_ys4te"]
 colors = PackedColorArray(0.230315, 0.230315, 0.230315, 1, 1, 1, 1, 1)
 
-[node name="PlayerShip" type="CharacterBody2D"]
+[node name="PlayerShip" type="Area2D"]
 scale = Vector2(0.75, 0.75)
 script = ExtResource("1_ye4q7")
-acceleration = 1.0
 
 [node name="ThrusterParticles" type="Node2D" parent="."]
 
