@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds2wfmbtl5vt5"]
+[gd_scene load_steps=7 format=3 uid="uid://ds2wfmbtl5vt5"]
 
 [ext_resource type="Script" uid="uid://c4881nxuqida4" path="res://scripts/asteroid.gd" id="1_pofgt"]
 [ext_resource type="Texture2D" uid="uid://ckod4flnx3svs" path="res://assets/art/asteroid_medium.png" id="1_vlxhm"]
 [ext_resource type="PackedScene" uid="uid://d3h713yf1mh8d" path="res://scenes/asteroid_small.tscn" id="2_vv68d"]
+[ext_resource type="PackedScene" uid="uid://dkom284s7d7yf" path="res://scenes/explode.tscn" id="3_si1u6"]
 [ext_resource type="PackedScene" uid="uid://bfgvb6spi3s7r" path="res://scenes/screen_wrapper.tscn" id="3_vv68d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yn6tr"]
@@ -12,6 +13,7 @@ radius = 16.0
 scale = Vector2(3, 3)
 script = ExtResource("1_pofgt")
 next_asteroid_scene = ExtResource("2_vv68d")
+explode_scene = ExtResource("3_si1u6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_vlxhm")
