@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c43feds8d852g"]
+[gd_scene load_steps=9 format=3 uid="uid://c43feds8d852g"]
 
 [ext_resource type="Texture2D" uid="uid://c0icfbli81nql" path="res://assets/art/ship.png" id="1_wbtlb"]
 [ext_resource type="Script" uid="uid://bgvdw5iuckka" path="res://scripts/player_ship.gd" id="1_ye4q7"]
+[ext_resource type="PackedScene" uid="uid://dkom284s7d7yf" path="res://scenes/explode.tscn" id="2_yf02v"]
 [ext_resource type="AudioStream" uid="uid://b1bke3fcte0ik" path="res://assets/sfx/thruster.mp3" id="3_7t0u0"]
 [ext_resource type="AudioStream" uid="uid://b45dkw4jq37bv" path="res://assets/sfx/laser.wav" id="4_ys4te"]
 [ext_resource type="PackedScene" uid="uid://bfgvb6spi3s7r" path="res://scenes/screen_wrapper.tscn" id="5_7ni5w"]
@@ -16,6 +17,7 @@ colors = PackedColorArray(0.230315, 0.230315, 0.230315, 1, 1, 1, 1, 1)
 [node name="PlayerShip" type="Area2D"]
 scale = Vector2(0.75, 0.75)
 script = ExtResource("1_ye4q7")
+explode_scene = ExtResource("2_yf02v")
 
 [node name="ThrusterParticles" type="Node2D" parent="."]
 
@@ -80,3 +82,5 @@ stream = ExtResource("3_7t0u0")
 stream = ExtResource("4_ys4te")
 
 [node name="ScreenWrapper" parent="." instance=ExtResource("5_7ni5w")]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

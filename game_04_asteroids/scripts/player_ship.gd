@@ -4,10 +4,12 @@ extends Area2D
 @export var max_speed: float = 150.0
 @export var thrust_force: float = 200
 @export var bullet_pool: Node
+@export var explode_scene: PackedScene
 
 var is_thrusting: bool = false
 var is_rotating: bool = false
 var velocity: Vector2 = Vector2.ZERO
+var is_input_disabled = false
 
 @onready var thruster_sfx: AudioStreamPlayer = $ThrusterSFX
 @onready var fire_sfx: AudioStreamPlayer = $FireSFX
@@ -16,17 +18,20 @@ var velocity: Vector2 = Vector2.ZERO
 @onready var thruster_particles_right: CPUParticles2D = $ThrusterParticles/Right
 
 func _ready() -> void:
-	global_position = get_viewport_rect().get_center()
+	reset_position()
 	
-func _process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	if not is_input_disabled:
+		handle_fire()
+		handle_rotation(delta)
+		handle_thrust(delta)
+		
+	play_thruster_sfx()
+	
+func play_thruster_sfx() -> void:
 	if (is_thrusting or is_rotating) != thruster_sfx.playing:
 		thruster_sfx.playing = is_thrusting or is_rotating
 		
-func _physics_process(delta: float) -> void:
-	handle_fire()
-	handle_rotation(delta)
-	handle_thrust(delta)
-	
 func handle_thrust(delta: float) -> void:
 	var facing_direction: Vector2 = Vector2.UP.rotated(rotation)
 	
@@ -63,3 +68,34 @@ func handle_fire() -> void:
 			fire_sfx.stop()
 		fire_sfx.play()
 		bullet_pool.fire(global_position, rotation)
+
+func _on_area_entered(area: Area2D) -> void:
+	if not visible:
+		return
+	if area is Asteroid:
+		disable_controls()
+		explode()
+		lose_life()
+		
+func disable_controls() -> void:
+	is_input_disabled = true
+	is_rotating = false
+	is_thrusting = false
+	
+func explode() -> void:
+	visible = false
+	
+	var explode: CPUParticles2D = explode_scene.instantiate()
+	explode.global_position = global_position
+	explode.connect("tree_exited",reset_position)
+	get_parent().add_child(explode)
+	
+func lose_life() -> void:
+	pass
+	
+func reset_position() -> void:
+	velocity = Vector2.ZERO
+	rotation = 0.0
+	global_position = get_viewport_rect().get_center()
+	visible = true
+	is_input_disabled = false
