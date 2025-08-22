@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bkvtt1ak0w1rv"]
+[gd_scene load_steps=14 format=3 uid="uid://bkvtt1ak0w1rv"]
 
 [ext_resource type="Script" uid="uid://d0cl3o1c1pawm" path="res://scripts/main_menu.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://c43feds8d852g" path="res://scenes/player_ship.tscn" id="2_0wfyh"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://f7havdhdq5cb" path="res://scenes/bullet.tscn" id="4_tbgi4"]
 [ext_resource type="Script" uid="uid://dbqt5r7o1t3ue" path="res://scripts/asteroid_manager.gd" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://ctyfn8sj8oi3p" path="res://scenes/asteroid_large.tscn" id="6_tefeu"]
+[ext_resource type="Texture2D" uid="uid://c0icfbli81nql" path="res://assets/art/ship.png" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://dvaxatu4j72h2" path="res://scripts/lives.gd" id="7_tipki"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sgp6g"]
 font_size = 246
@@ -44,9 +46,13 @@ corner_radius_bottom_left = 8
 shadow_color = Color(0.776471, 0, 0.776471, 0.882353)
 shadow_size = 2
 
+[sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
+font_size = 48
+
 [node name="Main" type="Node2D"]
 
 [node name="MainMenu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
@@ -101,4 +107,53 @@ bullet_scene = ExtResource("4_tbgi4")
 script = ExtResource("5_tbgi4")
 asteroid_large_scene = ExtResource("6_tefeu")
 
+[node name="UI" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 192.0
+offset_bottom = 74.0
+text = "00000"
+label_settings = SubResource("LabelSettings_tefeu")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Waves" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 74.0
+grow_horizontal = 2
+text = "00"
+label_settings = SubResource("LabelSettings_tefeu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lives" type="HBoxContainer" parent="UI"]
+layout_mode = 2
+offset_left = 20.0
+offset_top = 75.0
+offset_right = 192.0
+offset_bottom = 95.0
+theme_override_constants/separation = 5
+alignment = 2
+script = ExtResource("7_tipki")
+life_texture = ExtResource("7_o6xl0")
+
 [connection signal="pressed" from="MainMenu/MarginContainer/StartButton" to="MainMenu" method="_on_start_button_pressed"]
+[connection signal="died" from="Game/PlayerShip" to="UI/Lives" method="remove_life"]

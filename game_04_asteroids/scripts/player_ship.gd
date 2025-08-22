@@ -1,5 +1,7 @@
 extends Area2D
 
+signal died
+
 @export var rotation_speed: float = 2.0
 @export var max_speed: float = 150.0
 @export var thrust_force: float = 200
@@ -91,7 +93,7 @@ func explosion() -> void:
 	get_parent().add_child(explode)
 	
 func lose_life() -> void:
-	pass
+	died.emit()
 	
 func reset_position() -> void:
 	velocity = Vector2.ZERO
