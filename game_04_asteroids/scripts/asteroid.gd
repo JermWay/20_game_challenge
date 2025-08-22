@@ -1,11 +1,10 @@
 extends Area2D
 class_name Asteroid
-signal audio_done
+
 @export var next_asteroid_scene: PackedScene
 @export var explode_scene: PackedScene
 @export var speed: float = 200
 
-@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 var direction: Vector2 = Vector2.ZERO
 var size: Vector2
@@ -42,9 +41,9 @@ func _on_area_entered(area: Area2D) -> void:
 		if not area.visible:
 			return
 		print(area.name)
-		call_deferred("explode", area)
+		call_deferred("explosion", area)
 		
-func explode(area: Bullet) -> void:
+func explosion(area: Bullet) -> void:
 	area.stop()
 	var explode: CPUParticles2D = explode_scene.instantiate()
 	explode.global_position = global_position

@@ -74,7 +74,7 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 	if area is Asteroid:
 		disable_controls()
-		explode()
+		explosion()
 		lose_life()
 		
 func disable_controls() -> void:
@@ -82,7 +82,7 @@ func disable_controls() -> void:
 	is_rotating = false
 	is_thrusting = false
 	
-func explode() -> void:
+func explosion() -> void:
 	visible = false
 	
 	var explode: CPUParticles2D = explode_scene.instantiate()
