@@ -17,6 +17,7 @@ colors = PackedColorArray(0.230315, 0.230315, 0.230315, 1, 1, 1, 1, 1)
 [node name="PlayerShip" type="Area2D"]
 scale = Vector2(0.75, 0.75)
 script = ExtResource("1_ye4q7")
+thrust_force = 100.0
 explode_scene = ExtResource("2_yf02v")
 
 [node name="ThrusterParticles" type="Node2D" parent="."]

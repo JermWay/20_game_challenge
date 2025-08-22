@@ -11,6 +11,7 @@ size = Vector2(10, 10)
 visible = false
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_y25gk")
+bullet_speed = 300.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_l5glv")
