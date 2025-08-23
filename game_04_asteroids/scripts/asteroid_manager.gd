@@ -22,7 +22,6 @@ func _process(_delta: float) -> void:
 		start_wave_count += 1
 		spawn_wave()
 
-
 func _on_child_entered_tree(child: Node) -> void:
 	if child is Asteroid:
 		child.destroyed.connect(_on_asteroid_destroyed)

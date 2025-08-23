@@ -42,7 +42,6 @@ func _on_area_entered(area: Area2D) -> void:
 	if area is Bullet:
 		if not area.visible:
 			return
-		print(area.name)
 		call_deferred("explosion", area)
 		
 func explosion(area: Bullet) -> void:

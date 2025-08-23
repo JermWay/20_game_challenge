@@ -4,6 +4,7 @@ extends HBoxContainer
 @export var start_lives: int = 3
 
 @onready var ui: Control = $".."
+@onready var game: Node = $"../../Game"
 
 func reset() -> void:
 	for count in range(start_lives):
@@ -19,7 +20,8 @@ func remove_life() -> void:
 	var life_count = get_lives() - 1
 	get_child(life_count).queue_free()
 	if life_count < 1:
-		ui.reset_ui()
+		game.free_ship()
+		ui.game_over_panel.visible = true
 		
 func get_lives() -> int:
 	return get_child_count()

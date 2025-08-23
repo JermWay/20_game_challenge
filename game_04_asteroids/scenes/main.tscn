@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://bkvtt1ak0w1rv"]
+[gd_scene load_steps=19 format=3 uid="uid://bkvtt1ak0w1rv"]
 
 [ext_resource type="Script" uid="uid://d0cl3o1c1pawm" path="res://scripts/main_menu.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://c43feds8d852g" path="res://scenes/player_ship.tscn" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://bprwr4a2qhsmb" path="res://scripts/game.gd" id="3_eb6dy"]
 [ext_resource type="Script" uid="uid://b8rxio2fngcnr" path="res://scripts/bullet_pool_manager.gd" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://f7havdhdq5cb" path="res://scenes/bullet.tscn" id="4_tbgi4"]
 [ext_resource type="Script" uid="uid://dbqt5r7o1t3ue" path="res://scripts/asteroid_manager.gd" id="5_tbgi4"]
@@ -52,10 +53,22 @@ shadow_size = 2
 [sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
 font_size = 48
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
+bg_color = Color(0.498039, 0.258824, 0.352941, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.729412, 0.529412, 0.498039, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="Main" type="Node2D"]
 
 [node name="MainMenu" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
@@ -98,9 +111,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0wfyh")
 text = "Start"
 
 [node name="Game" type="Node" parent="."]
-
-[node name="PlayerShip" parent="Game" node_paths=PackedStringArray("bullet_pool") instance=ExtResource("2_0wfyh")]
-bullet_pool = NodePath("../BulletPool")
+script = ExtResource("3_eb6dy")
+player_ship_scene = ExtResource("2_0wfyh")
 
 [node name="BulletPool" type="Node" parent="Game"]
 script = ExtResource("3_jyhfs")
@@ -111,6 +123,7 @@ script = ExtResource("5_tbgi4")
 asteroid_large_scene = ExtResource("6_tefeu")
 
 [node name="UI" type="Control" parent="."]
+visible = false
 z_index = 1
 layout_mode = 3
 anchors_preset = 15
@@ -161,6 +174,59 @@ alignment = 2
 script = ExtResource("7_tipki")
 life_texture = ExtResource("7_o6xl0")
 
+[node name="GameOverPanel" type="Panel" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eb6dy")
+
+[node name="Label" type="Label" parent="UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_right = 86.0
+offset_bottom = 111.0
+grow_horizontal = 2
+text = "Game
+Over"
+label_settings = SubResource("LabelSettings_tefeu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -80.0
+offset_right = 75.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sgp6g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0wfyh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o5qli")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0wfyh")
+text = "Restart"
+
 [connection signal="pressed" from="MainMenu/MarginContainer/StartButton" to="MainMenu" method="_on_start_button_pressed"]
-[connection signal="died" from="Game/PlayerShip" to="UI/Lives" method="remove_life"]
 [connection signal="child_entered_tree" from="Game/Asteroids" to="Game/Asteroids" method="_on_child_entered_tree"]
+[connection signal="pressed" from="UI/GameOverPanel/RestartButton" to="Game" method="_on_restart_button_pressed"]
