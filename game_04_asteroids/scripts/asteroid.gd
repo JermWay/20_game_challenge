@@ -1,10 +1,12 @@
 extends Area2D
 class_name Asteroid
 
+signal destroyed(points: int)
+
 @export var next_asteroid_scene: PackedScene
 @export var explode_scene: PackedScene
 @export var speed: float = 200
-
+@export var points_value: int 
 
 var direction: Vector2 = Vector2.ZERO
 var size: Vector2
@@ -34,8 +36,7 @@ func pick_random_position() -> Vector2:
 			return Vector2(0 - size.x, randf() * viewport_size.y)
 		_:
 			return Vector2.ZERO
-
-
+			
 func _on_area_entered(area: Area2D) -> void:
 	if area is Bullet:
 		if not area.visible:
@@ -48,6 +49,7 @@ func explosion(area: Bullet) -> void:
 	var explode: CPUParticles2D = explode_scene.instantiate()
 	explode.global_position = global_position
 	get_parent().add_child(explode)
+	destroyed.emit(points_value)
 	
 	if next_asteroid_scene == null:
 		queue_free()

@@ -15,6 +15,7 @@ script = ExtResource("1_8xjg5")
 next_asteroid_scene = ExtResource("2_jsyga")
 explode_scene = ExtResource("3_n5wx3")
 speed = 60.0
+points_value = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_kic6k")

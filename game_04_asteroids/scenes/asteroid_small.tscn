@@ -13,6 +13,7 @@ scale = Vector2(3, 3)
 script = ExtResource("1_x7wxb")
 explode_scene = ExtResource("2_qo6y1")
 speed = 120.0
+points_value = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_2rqvc")
