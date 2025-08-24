@@ -5,6 +5,7 @@ extends Node
 var player_ship: Area2D
 
 @onready var ui: Control = $"../UI"
+@onready var asteroids: Node = $Asteroids
 
 func spawn_player_ship() -> void:
 	player_ship = player_ship_scene.instantiate()
@@ -15,8 +16,8 @@ func spawn_player_ship() -> void:
 func free_ship() -> void:
 	player_ship.queue_free()
 
-
 func _on_restart_button_pressed() -> void:
 	ui.game_over_panel.visible = false
 	ui.reset_ui()
+	asteroids.reset()
 	spawn_player_ship()
