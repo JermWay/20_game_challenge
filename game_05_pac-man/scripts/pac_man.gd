@@ -6,15 +6,19 @@ var is_moving: bool
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("ui_left"):
 		move_to = maze.local_to_map(position) + Vector2i.LEFT
+		rotation = deg_to_rad(180)
 		move()
 	elif Input.is_action_pressed("ui_right"):
 		move_to = maze.local_to_map(position) + Vector2i.RIGHT
+		rotation = deg_to_rad(0)
 		move()
 	elif Input.is_action_pressed("ui_up"):
 		move_to = maze.local_to_map(position) + Vector2i.UP
+		rotation = deg_to_rad(-90)
 		move()
 	elif Input.is_action_pressed("ui_down"):
 		move_to = maze.local_to_map(position) + Vector2i.DOWN
+		rotation = deg_to_rad(90)
 		move()
 	if is_moving and not is_playing():
 		play()
