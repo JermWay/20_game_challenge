@@ -1,9 +1,12 @@
 extends AnimatedSprite2D
+signal scored(points: int)
+
 @onready var maze: TileMapLayer = $"../Maze"
+
 var move_to: Vector2i
 var is_moving: bool
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("ui_left"):
 		move_to = maze.local_to_map(position) + Vector2i.LEFT
 		rotation = deg_to_rad(180)
@@ -29,12 +32,25 @@ func move() -> void:
 	if is_moving:
 		return
 		
-	var tile = maze.get_cell_tile_data(move_to)
-	if tile != null and tile.get_custom_data("is_wall"):
+	var data = maze.get_cell_tile_data(move_to)
+	if data != null:
+		if data.get_custom_data("is_wall"):
 			return
 			
 	is_moving = true
 	var move_tween = create_tween()
 	move_tween.tween_property(self, "position", maze.map_to_local(move_to),.1)
-	
+	if data != null: 
+		if data.get_custom_data("has_dot"):
+			move_tween.tween_callback(eat_dot.bind(move_to))
+		elif data.get_custom_data("has_power_pellet"):
+			move_tween.tween_callback(eat_power_pellet.bind(move_to))
 	move_tween.tween_callback(func(): is_moving = false)
+
+func eat_dot(dot_pos: Vector2i) -> void:
+	scored.emit(10)
+	maze.erase_cell(dot_pos)
+	
+func eat_power_pellet(dot_pos: Vector2i) -> void:
+	scored.emit(50)
+	maze.erase_cell(dot_pos)
