@@ -4,6 +4,8 @@ const DEBUG: bool = true
 
 var intersections: Dictionary = {}
 
+@onready var width: int = get_used_rect().size.x
+
 func _ready() -> void:
 	log_intersections()
 	
@@ -28,12 +30,18 @@ func find_path(start_cell: Vector2i, end_cell: Vector2i, prev_cell: Vector2i) ->
 	came_from[start_cell] = null
 	
 	var end_found = false
-	var visited: Array[Vector2i] = [prev_cell]
+	var visited: Array[Vector2i] = []
+	if prev_cell != null:
+		visited.append(prev_cell)
 	
 	while queue.size() > 0  and not end_found:
 		var current_cell = queue.pop_front()
 		var surronding_cells = get_surrounding_cells(current_cell)
 		for cell in surronding_cells:
+			if cell.x < 0:
+				cell.x = width - 1
+			if cell.x >= width:
+				cell.x = 0
 			if cell == end_cell:
 				came_from[cell] = current_cell
 				end_found = true
@@ -67,7 +75,7 @@ func is_walkable(cell: Vector2i):
 	return get_cell_tile_data(cell) != null and get_cell_tile_data(cell).get_custom_data("is_walkable")
 	
 func is_intersection(cell: Vector2i) -> bool:
-	return intersections[cell]
+	return intersections.get(cell, false)
 	
 func global_to_tile(global_pos: Vector2) -> Vector2i:
 	var local_pos = to_local(global_pos)

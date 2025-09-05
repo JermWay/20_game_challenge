@@ -37,6 +37,15 @@ func move() -> void:
 		if data.get_custom_data("is_wall"):
 			return
 			
+			
+	if move_to.x != (move_to.x + maze.width) % maze.width:
+		move_to.x = (move_to.x + maze.width) % maze.width
+
+		if move_to.x == 0 :
+			global_position = maze.tile_to_global(move_to + Vector2i.LEFT)
+		elif move_to.x == maze.width - 1:
+			global_position = maze.tile_to_global(move_to + Vector2i.RIGHT)
+		
 	is_moving = true
 	var move_tween = create_tween()
 	move_tween.tween_property(self, "global_position", maze.tile_to_global(move_to),.1)
