@@ -1,20 +1,20 @@
-extends Sprite2D
+extends State
 
 var is_moving = false
 var previous_tile: Vector2i
 var current_tile: Vector2i
 var next_tile: Vector2i
 var path: Array[Vector2i] = []
+@onready var maze: TileMapLayer = $"../../../Maze"
+@onready var pac_man: AnimatedSprite2D = $"../../../PacMan"
+@onready var ghost_red: Sprite2D = $"../.."
 
-@onready var maze: TileMapLayer = $"../Maze"
-@onready var pac_man: AnimatedSprite2D = $"../PacMan"
-
-func _ready() -> void:
-	current_tile = maze.global_to_tile(global_position)
+func enter() -> void:
+	current_tile = maze.global_to_tile(ghost_red.global_position)
 	if not is_centered_on_tile():
-		global_position = maze.tile_to_global(current_tile)
+		ghost_red.global_position = maze.tile_to_global(current_tile)
 			
-func _process(_delta: float) -> void:
+func update(_delta: float) -> void:
 	if not is_moving and is_centered_on_tile():
 		if path.size() <= 1 or maze.is_intersection(current_tile):
 			var target_tile = maze.global_to_tile(pac_man.global_position)
@@ -47,12 +47,12 @@ func warp_move() -> void:
 		
 func _on_moved_off_screen_right_for_warp() -> void:
 	var off_screen_tile_left := next_tile + Vector2i.LEFT
-	global_position = maze.tile_to_global(off_screen_tile_left)
+	ghost_red.global_position = maze.tile_to_global(off_screen_tile_left)
 	tween_to_tile(next_tile, _on_move_completed)
 		
 func _on_moved_off_screen_left_for_warp() -> void:
 	var off_screen_tile_right := next_tile + Vector2i.RIGHT
-	global_position = maze.tile_to_global(off_screen_tile_right)
+	ghost_red.global_position = maze.tile_to_global(off_screen_tile_right)
 	tween_to_tile(next_tile, _on_move_completed)
 
 func move_to_next_tile() -> void:
@@ -63,14 +63,14 @@ func move_to_next_tile() -> void:
 	
 func tween_to_tile(tile: Vector2i, callback: Callable) -> void:
 	var move_tween := create_tween()
-	move_tween.tween_property(self, "global_position", maze.tile_to_global(tile), 0.1)
+	move_tween.tween_property(ghost_red, "global_position", maze.tile_to_global(tile), 0.1)
 	move_tween.tween_callback(callback)
 	
 func _on_move_completed() -> void:
 	previous_tile = current_tile
-	current_tile = maze.global_to_tile(global_position)
+	current_tile = maze.global_to_tile(ghost_red.global_position)
 	is_moving = false
 	
 func is_centered_on_tile() -> bool:
 	var tile_center: Vector2 = maze.tile_to_global(current_tile)
-	return global_position.distance_to(tile_center) < 1.0
+	return ghost_red.global_position.distance_to(tile_center) < 1.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dr1ucludbnycc"]
+[gd_scene load_steps=15 format=4 uid="uid://dr1ucludbnycc"]
 
 [ext_resource type="Script" uid="uid://cb6tktc2odlrj" path="res://scripts/game.gd" id="1_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://bhsg03o3b8dqh" path="res://assets/art/maze_tiles.png" id="1_uwrxv"]
@@ -6,7 +6,8 @@
 [ext_resource type="Script" uid="uid://vphfaled6qgm" path="res://scripts/pac_man.gd" id="3_lbhrr"]
 [ext_resource type="Script" uid="uid://b81dokm7c33xd" path="res://scripts/maze.gd" id="3_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://d01mxxgtd3ojy" path="res://assets/art/ghost_red.png" id="5_p57ef"]
-[ext_resource type="Script" uid="uid://duf782bx6tq65" path="res://scripts/ghost_red.gd" id="6_u5sy4"]
+[ext_resource type="Script" uid="uid://b77ele74yatxt" path="res://scripts/state_machine.gd" id="8_gee14"]
+[ext_resource type="Script" uid="uid://16oqvj2oq3fd" path="res://scripts/states/chase_state.gd" id="9_vtaks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("1_uwrxv")
@@ -96,6 +97,12 @@ frame_progress = 0.679539
 script = ExtResource("3_lbhrr")
 
 [node name="GhostRed" type="Sprite2D" parent="."]
-position = Vector2(12, 12)
+position = Vector2(112, 92)
 texture = ExtResource("5_p57ef")
-script = ExtResource("6_u5sy4")
+
+[node name="StateMachine" type="Node" parent="GhostRed" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("8_gee14")
+initial_state = NodePath("Chase")
+
+[node name="Chase" type="Node" parent="GhostRed/StateMachine"]
+script = ExtResource("9_vtaks")

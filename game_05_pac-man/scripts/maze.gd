@@ -1,6 +1,6 @@
 extends TileMapLayer
 
-const DEBUG: bool = true
+const DEBUG: bool = false
 
 var intersections: Dictionary = {}
 
