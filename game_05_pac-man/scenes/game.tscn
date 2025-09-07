@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://dr1ucludbnycc"]
+[gd_scene load_steps=16 format=4 uid="uid://dr1ucludbnycc"]
 
 [ext_resource type="Script" uid="uid://cb6tktc2odlrj" path="res://scripts/game.gd" id="1_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://bhsg03o3b8dqh" path="res://assets/art/maze_tiles.png" id="1_uwrxv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b81dokm7c33xd" path="res://scripts/maze.gd" id="3_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://d01mxxgtd3ojy" path="res://assets/art/ghost_red.png" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://b77ele74yatxt" path="res://scripts/state_machine.gd" id="8_gee14"]
+[ext_resource type="Script" uid="uid://1qelw58w2d4m" path="res://scripts/states/scatter_state.gd" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://16oqvj2oq3fd" path="res://scripts/states/chase_state.gd" id="9_vtaks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
@@ -97,12 +98,35 @@ frame_progress = 0.679539
 script = ExtResource("3_lbhrr")
 
 [node name="GhostRed" type="Sprite2D" parent="."]
-position = Vector2(112, 92)
+position = Vector2(173, 117)
 texture = ExtResource("5_p57ef")
 
 [node name="StateMachine" type="Node" parent="GhostRed" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("8_gee14")
-initial_state = NodePath("Chase")
+initial_state = NodePath("Scatter")
 
 [node name="Chase" type="Node" parent="GhostRed/StateMachine"]
 script = ExtResource("9_vtaks")
+
+[node name="Scatter" type="Node" parent="GhostRed/StateMachine"]
+script = ExtResource("9_0tnpc")
+
+[node name="Marker2D" type="Marker2D" parent="GhostRed/StateMachine/Scatter"]
+position = Vector2(20, 12)
+
+[node name="Red" type="Sprite2D" parent="."]
+position = Vector2(173, 164)
+texture = ExtResource("5_p57ef")
+
+[node name="StateMachine" type="Node" parent="Red" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("8_gee14")
+initial_state = NodePath("Chase")
+
+[node name="Chase" type="Node" parent="Red/StateMachine"]
+script = ExtResource("9_vtaks")
+
+[node name="Scatter" type="Node" parent="Red/StateMachine"]
+script = ExtResource("9_0tnpc")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(12, 28)
