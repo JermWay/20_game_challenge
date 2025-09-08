@@ -1,13 +1,16 @@
 extends TileMapLayer
+class_name Maze
 
 const DEBUG: bool = false
 
 var intersections: Dictionary = {}
+var walkables: Dictionary = {}
 
 @onready var width: int = get_used_rect().size.x
 
 func _ready() -> void:
 	log_intersections()
+	log_walkables()
 	
 	if DEBUG:
 		for cell in get_used_cells():
@@ -19,7 +22,7 @@ func _ready() -> void:
 			coord_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			coord_label.add_theme_font_size_override("font_size", 3)
 			coord_label.position = map_to_local(cell)
-			if intersections[cell]:
+			if is_intersection(cell):
 				coord_label.add_theme_color_override("font_color", Color.REBECCA_PURPLE)
 			add_child(coord_label)
 		
@@ -66,13 +69,17 @@ func log_intersections() -> void:
 		if not is_walkable(cell):
 			continue
 			
-		intersections[cell] = false
 		var neighbors = get_surrounding_cells(cell).filter(is_walkable)
 		if neighbors.size() > 2:
 			intersections[cell] = true
 			
+func log_walkables() -> void:
+	for cell in get_used_cells():
+		if get_cell_tile_data(cell) != null and get_cell_tile_data(cell).get_custom_data("is_walkable"):
+			walkables[cell] = true
+			
 func is_walkable(cell: Vector2i):
-	return get_cell_tile_data(cell) != null and get_cell_tile_data(cell).get_custom_data("is_walkable")
+	return walkables.get(cell, false)
 	
 func is_intersection(cell: Vector2i) -> bool:
 	return intersections.get(cell, false)

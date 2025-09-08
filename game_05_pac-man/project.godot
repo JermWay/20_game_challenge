@@ -13,6 +13,7 @@ config_version=5
 config/name="Game 05 Pac-Man"
 run/main_scene="uid://40lg0hf2xcmd"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [display]
