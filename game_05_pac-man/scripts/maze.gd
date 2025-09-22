@@ -91,3 +91,7 @@ func global_to_tile(global_pos: Vector2) -> Vector2i:
 func tile_to_global(tile: Vector2i) -> Vector2:
 	var local_pos = map_to_local(tile)
 	return to_global(local_pos)
+	
+func is_wall(tile: Vector2i) -> bool:
+	var data = get_cell_tile_data(tile)
+	return data != null and data.get_custom_data("is_wall") == true

@@ -3,7 +3,7 @@ extends Label
 var count: int = 0:
 		set(new_value):
 			count = new_value
-			text = str(count)
+			text = "%05d" % count
 		get: 
 			return count
 			
